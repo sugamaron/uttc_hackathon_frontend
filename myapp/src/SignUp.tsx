@@ -4,6 +4,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export const SignUpForm = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ userName, setUserName ] = useState('')
+  const [ term, setTerm ] = useState(0)
 
   const auth = getAuth();
 
@@ -41,6 +43,18 @@ export const SignUpForm = () => {
       type={"text"}
       value={password}
       onChange={(e) => setPassword(e.target.value)}
+    />
+    <label>ユーザ-名</label>
+    <input
+      type={"text"}
+      value={userName}
+      onChange={(e) => setUserName(e.target.value)}
+    />
+    <label>期</label>
+    <input
+      type={"number"}
+      value={term}
+      onChange={(e) => setTerm(Number(e.target.value))}
     />
     <button onClick={signup}>登録</button>
     </form>

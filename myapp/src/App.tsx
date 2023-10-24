@@ -1,4 +1,4 @@
-import React from 'react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import { LoginForm } from './LoginForm';
 import { onAuthStateChanged } from "firebase/auth";
@@ -17,12 +17,19 @@ function App() {
   });
 
   return (
-    <div className="App">
-      <LoginForm />
-      <SignUpForm />
-      {/* ログインしていないと見られないコンテンツは、loginUserがnullの場合表示しない */}
-      {loginUser ? <Content /> : null}
-    </div>
+    <BrowserRouter>
+      <h1>UTTCナレッジベース</h1>
+      <Link to="/login">アカウントをお持ちの方</Link>
+      <Link to="/signup">アカウントをお持ちでない方</Link>
+
+      <Route exact path="/login">
+        <LoginForm />
+      </Route>
+      <Route path="/signup">
+        <SignUpForm />
+      </Route>
+
+    </BrowserRouter>
   );
 }
 
