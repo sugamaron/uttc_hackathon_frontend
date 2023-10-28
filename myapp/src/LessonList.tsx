@@ -1,26 +1,22 @@
 import { BrowserRouter, Route, Redirect, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export const ItemList = () => {
-  type Lesson = {
-    lesson_id: string;
-    lesson_name: string;
-  };
-  type Category = {
-    category_id: string;
-    category_name: string;
-  };
+type Lesson = {
+  lesson_id: string;
+  lesson_name: string;
+};
 
+export const LessonList = () => {
   const [lessons, setLessons] = useState<Lesson[]>([]);
 
   const fetchLessons = async () => {
     try {
       const res = await fetch(
-        "https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items",
+        "https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/lessons",
         { method: "GET" }
       );
       if (!res.ok) {
-        throw Error(`Failed to fetch items: ${res.status}`);
+        throw Error(`Failed to fetch lessons: ${res.status}`);
       }
 
       const lessons: Lesson[] = await res.json();
@@ -35,14 +31,16 @@ export const ItemList = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <div>
-        {lessons.map((lesson) => (
-          <div>
-            <Link to={""} />
-          </div>
-        ))}
-      </div>
-    </BrowserRouter>
+    <div>
+      {lessons.map((lesson) => (
+        <div>
+          <Link
+            to={`/items/${lesson.lesson_id}/blog/registration_order?lesson_name=${lesson.lesson_name}`}
+          >
+            {lesson.lesson_name}
+          </Link>
+        </div>
+      ))}
+    </div>
   );
 };

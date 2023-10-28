@@ -7,6 +7,7 @@ import { fireAuth } from "./firebase";
 import { Content } from "./Content";
 import { SignUpForm } from "./SignUp";
 import { Entrance } from "./Entrance";
+import { Home } from "./Home";
 
 function App() {
   // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
@@ -19,10 +20,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <h1>UTTC knowledge base</h1>
-      <Route exact path="/">
-        <Entrance />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <Entrance />
+        </Route>
+        <Route path="/login">
+          <LoginForm />
+        </Route>
+        <Route path="/signup">
+          <SignUpForm />
+        </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Redirect,
+  Link,
+  useHistory,
+} from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useState } from "react";
@@ -8,6 +14,7 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const auth = getAuth();
+  const history = useHistory();
 
   const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,11 +23,7 @@ export const LoginForm = () => {
         // Signed in
         const user = userCredential.user;
         alert("ログイン:" + user.email);
-        return (
-          <BrowserRouter>
-            <Redirect to="/lessons" />
-          </BrowserRouter>
-        );
+        history.push("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -31,6 +34,7 @@ export const LoginForm = () => {
 
   return (
     <div>
+      <h1>UTTC knowledge base ログイン画面</h1>
       <h3>アカウントをお持ちの方</h3>
       <form onSubmit={onsubmit}>
         <label>メールアドレス</label>

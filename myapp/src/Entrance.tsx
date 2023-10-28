@@ -4,16 +4,10 @@ import { SignUpForm } from "./SignUp";
 
 export const Entrance = () => {
   return (
-    <BrowserRouter>
+    <div>
+      <h1>UTTC knowledge base</h1>
       <Link to="/login">アカウントをお持ちの方</Link>
       <Link to="/signup">アカウントをお持ちでない方</Link>
-
-      <Route path="/login">
-        <LoginForm />
-      </Route>
-      <Route path="/signup">
-        <SignUpForm />
-      </Route>
-    </BrowserRouter>
+    </div>
   );
 };

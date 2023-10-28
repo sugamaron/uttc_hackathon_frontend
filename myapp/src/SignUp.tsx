@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, useHistory } from "react-router-dom";
 
 export const SignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +9,7 @@ export const SignUpForm = () => {
   const [term, setTerm] = useState(0);
 
   const auth = getAuth();
+  const history = useHistory();
 
   const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,12 +38,7 @@ export const SignUpForm = () => {
         } catch (err) {
           console.error(err);
         }
-
-        return (
-          <BrowserRouter>
-            <Redirect to="/lessons" />
-          </BrowserRouter>
-        );
+        history.push("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -51,10 +47,9 @@ export const SignUpForm = () => {
       });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {};
-
   return (
     <div>
+      <h1>UTTC knowledge base アカウント作成</h1>
       <h3>アカウントをお持ちでない方</h3>
       <form onSubmit={onsubmit}>
         <label>メールアドレス</label>
