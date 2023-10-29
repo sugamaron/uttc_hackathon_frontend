@@ -41,6 +41,7 @@ export const LessonList = () => {
           </Link>
         </div>
       ))}
+      <Link to="/home">ホームに戻る</Link>
     </div>
   );
 };

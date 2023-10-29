@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
 import { Profile } from "./Profile";
 import { ItemList } from "./ItemList";
+import { Tameshi } from "./Tameshi2";
 
 export const Home = () => {
   return (
@@ -15,8 +16,11 @@ export const Home = () => {
         <Route path="/home">
           <Profile />
         </Route>
-        <Route path="/items/:lesson_id/:category_id/:sort">
+        <Route path="/items/:lesson_id/:category_id/:order">
           <ItemList />
+        </Route>
+        <Route path="/tameshi">
+          <Tameshi />
         </Route>
       </Switch>
     </BrowserRouter>
