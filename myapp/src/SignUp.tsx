@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { BrowserRouter, Route, Redirect, useHistory } from "react-router-dom";
+import { SetUserData } from "./User";
 
 export const SignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export const SignUpForm = () => {
         // Signed in
         const user = userCredential.user;
         alert("登録ユーザー:" + user.email);
-
+        //データベースにユーザー情報送る
         try {
           const result = await fetch(
             "https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/users",
@@ -38,6 +39,7 @@ export const SignUpForm = () => {
         } catch (err) {
           console.error(err);
         }
+        SetUserData(email);
         history.push("/home");
       })
       .catch((error) => {

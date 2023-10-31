@@ -8,6 +8,11 @@ import { Content } from "./Content";
 import { SignUpForm } from "./SignUp";
 import { Entrance } from "./Entrance";
 import { Home } from "./Home";
+import { ItemList } from "./ItemList";
+import { Tameshi } from "./Tameshi2";
+import { ItemDetailBlog } from "./ItemDetailBlog";
+import { ItemDetailBook } from "./ItemDetailBook";
+import { ItemDetailMovie } from "./ItemDetailMovie";
 
 function App() {
   // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
@@ -18,6 +23,7 @@ function App() {
     setLoginUser(user);
   });
 
+  //すべてのルーティングはここに集結!
   return (
     <BrowserRouter>
       <Switch>
@@ -32,6 +38,18 @@ function App() {
         </Route>
         <Route path="/home">
           <Home />
+        </Route>
+        <Route path="/items/:lesson_id/:category_id/:order">
+          <ItemList />
+        </Route>
+        <Route path="/items/blog/:item_id">
+          <ItemDetailBlog />
+        </Route>
+        <Route path="/items/book/:item_id">
+          <ItemDetailBook />
+        </Route>
+        <Route path="/items/movie/:item_id">
+          <ItemDetailMovie />
         </Route>
       </Switch>
     </BrowserRouter>

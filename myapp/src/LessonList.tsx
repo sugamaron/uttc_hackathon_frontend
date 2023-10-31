@@ -35,7 +35,7 @@ export const LessonList = () => {
       {lessons.map((lesson) => (
         <div>
           <Link
-            to={`/items/${lesson.lesson_id}/blog/registration_order?lesson_name=${lesson.lesson_name}`}
+            to={`/items/${lesson.lesson_id}/blog/registration?lesson_name=${lesson.lesson_name}`}
           >
             {lesson.lesson_name}
           </Link>

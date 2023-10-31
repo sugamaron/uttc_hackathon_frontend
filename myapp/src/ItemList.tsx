@@ -1,7 +1,4 @@
 import {
-  BrowserRouter,
-  Route,
-  Redirect,
   Link,
   Switch,
   useParams,
@@ -9,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { LessonList } from "./LessonList";
 
 type Category = {
   category_id: string;
@@ -17,8 +15,8 @@ type Category = {
 type Item = {
   item_id: string;
   title: string;
-  Registrant: string;
-  RegistrationDate: string;
+  registrant: string;
+  registrationDate: string;
   updateDate: string;
   likes: number;
 };
@@ -70,7 +68,6 @@ export const ItemList = () => {
 
       const items: Item[] = await res.json();
       setItems(items);
-      console.log(items);
     } catch (err) {
       console.error(err);
     }
@@ -79,15 +76,18 @@ export const ItemList = () => {
   useEffect(() => {
     fetchCategories();
     fetchItems();
-  }, []);
+  }, [lesson_id, category_id, order]);
 
   return (
     <div>
+      <p>
+        <LessonList />
+      </p>
       <h2>{lesson_name}</h2>
       {categories.map((category, index) => (
         <div key={index}>
           <Link
-            to={`/items/${lesson_id}/${category.category_id}/registration_order?lesson_name=${lesson_name}`}
+            to={`/items/${lesson_id}/${category.category_id}/registration?lesson_name=${lesson_name}`}
           >
             {category.category_name}
           </Link>
@@ -96,17 +96,17 @@ export const ItemList = () => {
       <p></p>
 
       <Link
-        to={`/items/${lesson_id}/${category_id}/registration_order?lesson_name=${lesson_name}`}
+        to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
       >
         登録日順
       </Link>
       <Link
-        to={`/items/${lesson_id}/${category_id}/update_order?lesson_name=${lesson_name}`}
+        to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
       >
         更新日順
       </Link>
       <Link
-        to={`/items/${lesson_id}/${category_id}/like_order?lesson_name=${lesson_name}`}
+        to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
       >
         いいね順
       </Link>
@@ -114,12 +114,12 @@ export const ItemList = () => {
 
       {items.map((item, index) => (
         <div key={index}>
-          <Link to={`/items/${item.item_id}`}>{item.title}</Link>
+          <Link to={`/items/${category_id}/${item.item_id}`}>{item.title}</Link>
           <ul>
-            <li>{item.Registrant}</li>
-            <li>{item.RegistrationDate}</li>
-            <li>{item.updateDate}</li>
-            <li>{item.likes}</li>
+            <li>登録者：{item.registrant}</li>
+            <li>登録日:{item.registrationDate}</li>
+            <li>更新日:{item.updateDate}</li>
+            <li>いいね数:{item.likes}</li>
           </ul>
           <br />
         </div>

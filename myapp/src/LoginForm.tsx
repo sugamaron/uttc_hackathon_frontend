@@ -8,6 +8,7 @@ import {
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useState } from "react";
+import { GetUserData, SetUserData } from "./User";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +24,8 @@ export const LoginForm = () => {
         // Signed in
         const user = userCredential.user;
         alert("ログイン:" + user.email);
+        SetUserData(email);
+        console.log(GetUserData().email);
         history.push("/home");
       })
       .catch((error) => {
