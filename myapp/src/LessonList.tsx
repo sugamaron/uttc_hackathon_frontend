@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Redirect, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./style/LessonList.css";
 
 type Lesson = {
   lesson_id: string;
@@ -31,9 +32,9 @@ export const LessonList = () => {
   }, []);
 
   return (
-    <div>
-      {lessons.map((lesson) => (
-        <div>
+    <div className="LessonList">
+      {lessons.map((lesson, index) => (
+        <div key={index}>
           <Link
             to={`/items/${lesson.lesson_id}/blog/registration?lesson_name=${lesson.lesson_name}`}
           >

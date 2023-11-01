@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
+import "./style/ItemDetailMovie.css";
+import { Header } from "./Header";
 
 export const ItemDetailMovie = () => {
   //パスパラメータitem_id取得
@@ -59,32 +61,34 @@ export const ItemDetailMovie = () => {
 
   return (
     <div>
+      <Header />
       <p>
         <LessonList />
       </p>
-
-      {item.map((i, index) => (
-        <div>
-          <h2>{i.title}</h2>
-          <p>
-            {i.registrant} {i.registrationDate}
-          </p>
-          <p>
-            {i.updater} {i.updateDate}
-          </p>
-          <p>{i.description}</p>
-          <iframe
-            width="560"
-            height="315"
-            src={i.url}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen;"
-          ></iframe>
-          <p>いいね {i.likes}</p>
-          <Link to={`/items/edit/${item_id}`}>編集</Link>
-          <button onClick={DeleteItem}>このアイテムを削除</button>
-        </div>
-      ))}
+      <div className="ItemDetailMovie">
+        {item.map((i, index) => (
+          <div>
+            <h2>{i.title}</h2>
+            <p>
+              {i.registrant} {i.registrationDate}
+            </p>
+            <p>
+              {i.updater} {i.updateDate}
+            </p>
+            <p>{i.description}</p>
+            <iframe
+              width="560"
+              height="315"
+              src={i.url}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen;"
+            ></iframe>
+            <p>いいね {i.likes}</p>
+            <Link to={`/items/edit/${item_id}`}>編集</Link>
+            <button onClick={DeleteItem}>このアイテムを削除</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

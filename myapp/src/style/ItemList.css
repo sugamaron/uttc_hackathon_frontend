@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.ItemList {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 100px;
+    left: 300px;
+}
+
+.ItemList h2 {
+    position: relative;
+    top: 100px;
+    left: 300px;
+}

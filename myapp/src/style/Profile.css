@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.Profile {
+  margin: 0;
+  padding: 0;
+  display: block; 
+  margin-left: 300px;
+  position: relative;
+  top: 80px;
+}

@@ -4,7 +4,6 @@ import { LoginForm } from "./LoginForm";
 import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 import { fireAuth } from "./firebase";
-import { Content } from "./Content";
 import { SignUpForm } from "./SignUp";
 import { Entrance } from "./Entrance";
 import { Home } from "./Home";
@@ -14,6 +13,7 @@ import { ItemDetailBook } from "./ItemDetailBook";
 import { ItemDetailMovie } from "./ItemDetailMovie";
 import { EditItem } from "./ItemEdit";
 import { RegisterItem } from "./ItemRegister";
+import { EditProfile } from "./ProfileEdit";
 
 function App() {
   // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
@@ -57,6 +57,9 @@ function App() {
         </Route>
         <Route path="/items/register">
           <RegisterItem />
+        </Route>
+        <Route path="/users/edit/:user_id">
+          <EditProfile />
         </Route>
       </Switch>
     </BrowserRouter>

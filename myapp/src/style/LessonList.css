@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.LessonList {
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  width: 200px;
+  height: 100vh;
+  background: lightgray;
+
+  /* 縦方向のスクロールバーを表示 */
+  overflow-y: scroll;
+}

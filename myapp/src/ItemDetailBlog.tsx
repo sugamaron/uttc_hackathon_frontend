@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
+import "./style/ItemDetailBlog.css";
+import { Header } from "./Header";
 
 export const ItemDetailBlog = () => {
   //パスパラメータitem_id取得
@@ -59,26 +61,28 @@ export const ItemDetailBlog = () => {
 
   return (
     <div>
+      <Header />
       <p>
         <LessonList />
       </p>
-
-      {item.map((i, index) => (
-        <div>
-          <h2>{i.title}</h2>
-          <p>
-            {i.registrant} {i.registrationDate}
-          </p>
-          <p>
-            {i.updater} {i.updateDate}
-          </p>
-          <p>{i.description}</p>
-          <a href={i.url}>ブログを読む</a>
-          <p>いいね {i.likes}</p>
-          <Link to={`/items/edit/${item_id}`}>編集</Link>
-          <button onClick={DeleteItem}>このアイテムを削除</button>
-        </div>
-      ))}
+      <div className="ItemDetailBlog">
+        {item.map((i, index) => (
+          <div>
+            <h2>{i.title}</h2>
+            <p>
+              {i.registrant} {i.registrationDate}
+            </p>
+            <p>
+              {i.updater} {i.updateDate}
+            </p>
+            <p>{i.description}</p>
+            <a href={i.url}>ブログを読む</a>
+            <p>いいね {i.likes}</p>
+            <Link to={`/items/edit/${item_id}`}>編集</Link>
+            <button onClick={DeleteItem}>このアイテムを削除</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

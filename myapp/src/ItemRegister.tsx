@@ -129,7 +129,7 @@ export const RegisterItem = () => {
         <label>アイテムカテゴリ</label>
         <select
           name="category"
-          //value={category_id}
+          value={category_id}
           onChange={(e) => setCategoryId(e.target.value)}
         >
           {categories.map((category) => (

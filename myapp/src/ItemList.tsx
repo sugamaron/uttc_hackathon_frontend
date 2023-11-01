@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
+import "./style/ItemList.css";
+import { Header } from "./Header";
 
 type Category = {
   category_id: string;
@@ -80,50 +82,56 @@ export const ItemList = () => {
 
   return (
     <div>
+      <Header />
       <p>
         <LessonList />
       </p>
-      <h2>{lesson_name}</h2>
-      {categories.map((category, index) => (
-        <div key={index}>
-          <Link
-            to={`/items/${lesson_id}/${category.category_id}/registration?lesson_name=${lesson_name}`}
-          >
-            {category.category_name}
-          </Link>
+      <div className="ItemList">
+        <p>{lesson_name}</p>
+        <div className="flex">
+          {categories.map((category, index) => (
+            <div key={index} className="p-2">
+              <Link
+                to={`/items/${lesson_id}/${category.category_id}/registration?lesson_name=${lesson_name}`}
+              >
+                {category.category_name}
+              </Link>
+            </div>
+          ))}
         </div>
-      ))}
-      <p></p>
 
-      <Link
-        to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
-      >
-        登録日順
-      </Link>
-      <Link
-        to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
-      >
-        更新日順
-      </Link>
-      <Link
-        to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
-      >
-        いいね順
-      </Link>
-      <p></p>
+        <Link
+          to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
+        >
+          登録日順
+        </Link>
+        <Link
+          to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
+        >
+          更新日順
+        </Link>
+        <Link
+          to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
+        >
+          いいね順
+        </Link>
+        <p></p>
 
-      {items.map((item, index) => (
-        <div key={index}>
-          <Link to={`/items/${category_id}/${item.item_id}`}>{item.title}</Link>
-          <ul>
-            <li>登録者：{item.registrant}</li>
-            <li>登録日:{item.registrationDate}</li>
-            <li>更新日:{item.updateDate}</li>
-            <li>いいね数:{item.likes}</li>
-          </ul>
-          <br />
-        </div>
-      ))}
+        {items.map((item, index) => (
+          <div key={index}>
+            <Link to={`/items/${category_id}/${item.item_id}`}>
+              {item.title}
+            </Link>
+            <ul>
+              <li>登録者：{item.registrant}</li>
+              <li>登録日:{item.registrationDate}</li>
+              <li>更新日:{item.updateDate}</li>
+              <li>いいね数:{item.likes}</li>
+            </ul>
+            <br />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
