@@ -39,6 +39,7 @@ export const SignUpForm = () => {
         } catch (err) {
           console.error(err);
         }
+        //sessionStorageにユーザー情報保存
         SetUserData(email);
         history.push("/home");
       })

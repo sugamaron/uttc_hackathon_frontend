@@ -1,15 +1,18 @@
 import { Link, Redirect, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
+import { GetUserData } from "./User";
 
 export const EditItem = () => {
   //パスパラメータ取得
   const { item_id } = useParams<{
     item_id: string;
   }>();
+  //現在ログインしているユーザー情報取得
+  const userData = GetUserData();
+  const updater = userData.user_name;
 
   const [title, setTitle] = useState("");
-  const [updater, setUpdater] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
 

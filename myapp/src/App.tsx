@@ -9,10 +9,11 @@ import { SignUpForm } from "./SignUp";
 import { Entrance } from "./Entrance";
 import { Home } from "./Home";
 import { ItemList } from "./ItemList";
-import { Tameshi } from "./Tameshi2";
 import { ItemDetailBlog } from "./ItemDetailBlog";
 import { ItemDetailBook } from "./ItemDetailBook";
 import { ItemDetailMovie } from "./ItemDetailMovie";
+import { EditItem } from "./ItemEdit";
+import { RegisterItem } from "./ItemRegister";
 
 function App() {
   // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
@@ -50,6 +51,12 @@ function App() {
         </Route>
         <Route path="/items/movie/:item_id">
           <ItemDetailMovie />
+        </Route>
+        <Route path="/items/edit/:item_id">
+          <EditItem />
+        </Route>
+        <Route path="/items/register">
+          <RegisterItem />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -25,7 +25,6 @@ export const LoginForm = () => {
         const user = userCredential.user;
         alert("ログイン:" + user.email);
         SetUserData(email);
-        console.log(GetUserData().email);
         history.push("/home");
       })
       .catch((error) => {

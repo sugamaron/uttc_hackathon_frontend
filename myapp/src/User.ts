@@ -17,7 +17,7 @@ export const SetUserData = async(email: string) => {
       }
 
       const user: UserDataType[] = await res.json();
-      const userJson = JSON.stringify(user)
+      const userJson = JSON.stringify(user[0])
       sessionStorage.setItem('userData', userJson)
     } catch (err) {
       console.error(err);
@@ -36,6 +36,8 @@ export const GetUserData = () => {
     if (temp != null) {
       return JSON.parse(temp) as UserDataType;
     }
-    return userUndefined
+    else{
+        return userUndefined
+    }
   }
   
