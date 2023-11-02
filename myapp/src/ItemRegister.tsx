@@ -5,6 +5,7 @@ import { GetUserData } from "./User";
 
 export const RegisterItem = () => {
   const history = useHistory();
+
   //パスパラメータ取得
   const { item_id } = useParams<{
     item_id: string;
@@ -69,9 +70,15 @@ export const RegisterItem = () => {
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(category_id);
-    console.log(title);
-    console.log(categories);
+
+    if (category_id == "notSelected") {
+      alert("登録するアイテムのカテゴリを入力してください。");
+    }
+
+    if (lesson_id == "notSelected") {
+      alert("登録するアイテムのカテゴリを入力してください。");
+    }
+
     try {
       const result = await fetch(
         `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items`,
@@ -121,6 +128,7 @@ export const RegisterItem = () => {
           value={lesson_id}
           onChange={(e) => setLessonId(e.target.value)}
         >
+          <option value="notSelected">選択してください</option>
           {lessons.map((lesson) => (
             <option value={lesson.lesson_id}>{lesson.lesson_name}</option>
           ))}
@@ -132,6 +140,7 @@ export const RegisterItem = () => {
           value={category_id}
           onChange={(e) => setCategoryId(e.target.value)}
         >
+          <option value="notSelected">選択してください</option>
           {categories.map((category) => (
             <option value={category.category_id}>
               {category.category_name}

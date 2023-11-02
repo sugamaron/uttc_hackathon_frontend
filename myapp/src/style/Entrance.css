@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.Entrance {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 100px;
+    left: 200px;
+}
+
+.Link {
+    margin: 20px;
+    
+}

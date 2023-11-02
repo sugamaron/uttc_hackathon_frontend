@@ -18,8 +18,8 @@ type Item = {
   item_id: string;
   title: string;
   registrant: string;
-  registrationDate: string;
-  updateDate: string;
+  registration_date: string;
+  update_date: string;
   likes: number;
 };
 
@@ -37,7 +37,6 @@ export const ItemList = () => {
 
   //アイテムカテゴリ一覧取得
   const [categories, setCategories] = useState<Category[]>([]);
-
   const fetchCategories = async () => {
     try {
       const res = await fetch(
@@ -47,7 +46,6 @@ export const ItemList = () => {
       if (!res.ok) {
         throw Error(`Failed to fetch categories: ${res.status}`);
       }
-
       const categories: Category[] = await res.json();
       setCategories(categories);
     } catch (err) {
@@ -57,7 +55,6 @@ export const ItemList = () => {
 
   //章、カテゴリ別のアイテム一覧取得
   const [items, setItems] = useState<Item[]>([]);
-
   const fetchItems = async () => {
     try {
       const res = await fetch(
@@ -124,8 +121,8 @@ export const ItemList = () => {
             </Link>
             <ul>
               <li>登録者：{item.registrant}</li>
-              <li>登録日:{item.registrationDate}</li>
-              <li>更新日:{item.updateDate}</li>
+              <li>登録日:{item.registration_date}</li>
+              <li>更新日:{item.update_date}</li>
               <li>いいね数:{item.likes}</li>
             </ul>
             <br />

@@ -1,14 +1,12 @@
-import {
-  BrowserRouter,
-  Route,
-  Redirect,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useState } from "react";
 import { GetUserData, SetUserData } from "./User";
+import { Header } from "./Header";
+import { MantineProvider, createTheme } from "@mantine/core";
+import "./style/LoginForm.css";
+import { Input } from "@mantine/core";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -35,24 +33,35 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h1>UTTC knowledge base ログイン画面</h1>
-      <h3>アカウントをお持ちの方</h3>
-      <form onSubmit={onsubmit}>
-        <label>メールアドレス</label>
-        <input
-          type={"text"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label>パスワード</label>
-        <input
-          type={"text"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button>ログイン</button>
-      </form>
-    </div>
+    <MantineProvider>
+      <Header />
+      <div className="LoginForm">
+        <h1>アカウントをお持ちの方</h1>
+        <form onSubmit={onsubmit}>
+          <div className="p-5">
+            <label>メールアドレス</label>
+            <Input
+              className="w-3/5"
+              placeholder="メールアドレスを入力してください。"
+              type={"text"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="p-5">
+            <label>パスワード</label>
+            <Input
+              className="w-3/5"
+              placeholder="パスワードを入力してください。"
+              type={"text"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button className="p-5">ログイン</button>
+        </form>
+      </div>
+    </MantineProvider>
   );
 };

@@ -13,9 +13,9 @@ export const ItemDetailBlog = () => {
   type ItemDetail = {
     title: string;
     registrant: string;
-    registrationDate: string;
+    registration_date: string;
     updater: string;
-    updateDate: string;
+    update_date: string;
     description: string;
     url: string;
     likes: number;
@@ -70,10 +70,10 @@ export const ItemDetailBlog = () => {
           <div>
             <h2>{i.title}</h2>
             <p>
-              {i.registrant} {i.registrationDate}
+              登録者：{i.registrant} 登録日：{i.registration_date}
             </p>
             <p>
-              {i.updater} {i.updateDate}
+              更新者：{i.updater} 更新日：{i.update_date}
             </p>
             <p>{i.description}</p>
             <a href={i.url}>ブログを読む</a>
