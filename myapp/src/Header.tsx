@@ -1,17 +1,12 @@
 import { useHistory } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "./firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuthContext } from "./provider/AuthProvider";
 
 export const Header = () => {
-  // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
-  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
   const history = useHistory();
-
-  // ログイン状態を監視して、stateをリアルタイムで更新する
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+  const { user } = useAuthContext();
 
   const logout = () => {
     signOut(fireAuth)
@@ -23,6 +18,14 @@ export const Header = () => {
         alert(err);
       });
   };
+
+  // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
+  // useEffect(() => {
+  //   // ログイン状態を監視して、stateをリアルタイムで更新する
+  //   onAuthStateChanged(fireAuth, (user) => {
+  //     setLoginUser(user);
+  //   });
+  // }, []);
 
   return (
     <header className="text-gray-600 body-font fixed">
@@ -43,7 +46,7 @@ export const Header = () => {
           <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
         </a>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav>
-        {loginUser ? (
+        {user ? (
           <button
             onClick={logout}
             className="ml-auto inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"

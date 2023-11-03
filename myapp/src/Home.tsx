@@ -26,7 +26,7 @@ export const Home = () => {
 
   useEffect(() => {
     fetchUserData();
-  });
+  }, []);
 
   return (
     <div>

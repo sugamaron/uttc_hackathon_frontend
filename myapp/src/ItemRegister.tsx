@@ -129,8 +129,10 @@ export const RegisterItem = () => {
           onChange={(e) => setLessonId(e.target.value)}
         >
           <option value="notSelected">選択してください</option>
-          {lessons.map((lesson) => (
-            <option value={lesson.lesson_id}>{lesson.lesson_name}</option>
+          {lessons.map((lesson, index) => (
+            <option key={index} value={lesson.lesson_id}>
+              {lesson.lesson_name}
+            </option>
           ))}
         </select>
 
@@ -141,8 +143,8 @@ export const RegisterItem = () => {
           onChange={(e) => setCategoryId(e.target.value)}
         >
           <option value="notSelected">選択してください</option>
-          {categories.map((category) => (
-            <option value={category.category_id}>
+          {categories.map((category, index) => (
+            <option key={index} value={category.category_id}>
               {category.category_name}
             </option>
           ))}

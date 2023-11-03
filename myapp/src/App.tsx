@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import "./App.css";
+import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
+import { ComponentType, useEffect } from "react";
 import { LoginForm } from "./LoginForm";
 import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
@@ -14,55 +14,67 @@ import { ItemDetailMovie } from "./ItemDetailMovie";
 import { EditItem } from "./ItemEdit";
 import { RegisterItem } from "./ItemRegister";
 import { EditProfile } from "./ProfileEdit";
+import { AuthProvider } from "./provider/AuthProvider";
+import { useAuthContext } from "./provider/AuthProvider";
+import { GlobalAuthState } from "./provider/AuthProvider";
 
 function App() {
-  // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
-  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
+  // const { user } = useAuthContext();
+  // console.log(user);
 
-  // ログイン状態を監視して、stateをリアルタイムで更新する
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+  type Props = {
+    component: ComponentType;
+    path: string;
+  };
 
-  //すべてのルーティングはここに集結!
+  //ログイン状態でない場合はページを表示しないようにする
+  const RouteAuthGuard: React.FC<Props> = (props) => {
+    const { user } = useAuthContext();
+
+    if (user) {
+      return <Route path={props.path} component={props.component} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  };
+
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Entrance />
-        </Route>
-        <Route path="/login">
-          <LoginForm />
-        </Route>
-        <Route path="/signup">
-          <SignUpForm />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/items/:lesson_id/:category_id/:order">
-          <ItemList />
-        </Route>
-        <Route path="/items/blog/:item_id">
-          <ItemDetailBlog />
-        </Route>
-        <Route path="/items/book/:item_id">
-          <ItemDetailBook />
-        </Route>
-        <Route path="/items/movie/:item_id">
-          <ItemDetailMovie />
-        </Route>
-        <Route path="/items/edit/:item_id">
-          <EditItem />
-        </Route>
-        <Route path="/items/register">
-          <RegisterItem />
-        </Route>
-        <Route path="/users/edit/:user_id">
-          <EditProfile />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Entrance />
+          </Route>
+          <Route path="/login">
+            <LoginForm />
+          </Route>
+          <Route path="/signup">
+            <SignUpForm />
+          </Route>
+
+          <RouteAuthGuard path="/home" component={Home} />
+          <RouteAuthGuard
+            path="/items/blog/:item_id"
+            component={ItemDetailBlog}
+          />
+          <RouteAuthGuard
+            path="/items/book/:item_id"
+            component={ItemDetailBook}
+          />
+          <RouteAuthGuard
+            path="/items/movie/:item_id"
+            component={ItemDetailMovie}
+          />
+          <RouteAuthGuard path="/items/edit/:item_id" component={EditItem} />
+          <RouteAuthGuard path="/items/register" component={RegisterItem} />
+          <RouteAuthGuard
+            path="/items/:lesson_id/:category_id/:order"
+            component={ItemList}
+          />
+          <RouteAuthGuard path="/users/edit/:user_id" component={EditProfile} />
+        </Switch>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

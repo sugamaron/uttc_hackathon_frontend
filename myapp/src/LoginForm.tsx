@@ -1,6 +1,5 @@
 import { useHistory } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { fireAuth } from "./firebase";
 import { useState } from "react";
 import { GetUserData, SetUserData } from "./User";
 import { Header } from "./Header";
