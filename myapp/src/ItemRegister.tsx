@@ -99,10 +99,11 @@ export const RegisterItem = () => {
       if (!result.ok) {
         throw Error(`Failed to register item detail: ${result.status}`);
       }
+      alert("アイテムを登録しました。");
     } catch (err) {
       console.error(err);
     }
-    history.push("/home");
+    //history.push("/home");
   };
 
   useEffect(() => {

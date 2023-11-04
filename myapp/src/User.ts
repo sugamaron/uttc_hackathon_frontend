@@ -41,3 +41,16 @@ export const GetUserData = () => {
     }
   }
   
+  export const DeleteUserData = () => {
+    sessionStorage.removeItem('userData')
+  }
+
+export const GetUserAuth = () => {
+  const userData = sessionStorage.getItem('userData');
+
+  if (userData === null) {
+    return false
+  } else{
+    return true
+  }
+}

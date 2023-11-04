@@ -12,6 +12,11 @@ export const SignUpForm = () => {
   const auth = getAuth();
   const history = useHistory();
 
+  const SaveUserData = async () => {
+    await SetUserData(email);
+    history.push("/home");
+  };
+
   const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -40,7 +45,7 @@ export const SignUpForm = () => {
           console.error(err);
         }
         //sessionStorageにユーザー情報保存
-        SetUserData(email);
+        SaveUserData();
         history.push("/home");
       })
       .catch((error) => {

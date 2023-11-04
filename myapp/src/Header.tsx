@@ -3,6 +3,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "./provider/AuthProvider";
+import { DeleteUserData } from "./User";
 
 export const Header = () => {
   const history = useHistory();
@@ -11,6 +12,8 @@ export const Header = () => {
   const logout = () => {
     signOut(fireAuth)
       .then(() => {
+        //セッションストレージからユーザー情報削除
+        DeleteUserData();
         alert("ログアウトしました");
         history.push("/");
       })
@@ -18,14 +21,6 @@ export const Header = () => {
         alert(err);
       });
   };
-
-  // stateとしてログイン状態を管理する。ログインしていないときはnullになる。
-  // useEffect(() => {
-  //   // ログイン状態を監視して、stateをリアルタイムで更新する
-  //   onAuthStateChanged(fireAuth, (user) => {
-  //     setLoginUser(user);
-  //   });
-  // }, []);
 
   return (
     <header className="text-gray-600 body-font fixed">

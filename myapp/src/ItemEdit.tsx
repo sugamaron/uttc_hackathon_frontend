@@ -1,5 +1,5 @@
-import { Link, Redirect, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Redirect, useParams } from "react-router-dom";
+import { useState } from "react";
 import { LessonList } from "./LessonList";
 import { GetUserData } from "./User";
 
@@ -35,10 +35,10 @@ export const EditItem = () => {
       if (!result.ok) {
         throw Error(`Failed to fetch item detail: ${result.status}`);
       }
+      alert("アイテムを更新しました。");
     } catch (err) {
       console.error(err);
     }
-    return <Redirect to="/home" />;
   };
 
   return (

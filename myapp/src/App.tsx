@@ -1,9 +1,6 @@
 import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 import { ComponentType, useEffect } from "react";
 import { LoginForm } from "./LoginForm";
-import { onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
-import { fireAuth } from "./firebase";
 import { SignUpForm } from "./SignUp";
 import { Entrance } from "./Entrance";
 import { Home } from "./Home";
@@ -17,11 +14,9 @@ import { EditProfile } from "./ProfileEdit";
 import { AuthProvider } from "./provider/AuthProvider";
 import { useAuthContext } from "./provider/AuthProvider";
 import { GlobalAuthState } from "./provider/AuthProvider";
+import { GetUserAuth } from "./User";
 
 function App() {
-  // const { user } = useAuthContext();
-  // console.log(user);
-
   type Props = {
     component: ComponentType;
     path: string;
@@ -29,7 +24,7 @@ function App() {
 
   //ログイン状態でない場合はページを表示しないようにする
   const RouteAuthGuard: React.FC<Props> = (props) => {
-    const { user } = useAuthContext();
+    const user = GetUserAuth();
 
     if (user) {
       return <Route path={props.path} component={props.component} />;

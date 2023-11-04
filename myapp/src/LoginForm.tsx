@@ -14,15 +14,19 @@ export const LoginForm = () => {
   const auth = getAuth();
   const history = useHistory();
 
-  const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const SaveUserData = async () => {
+    await SetUserData(email);
+    history.push("/home");
+  };
+
+  const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         alert("ログイン:" + user.email);
-        SetUserData(email);
-        history.push("/home");
+        SaveUserData();
       })
       .catch((error) => {
         const errorCode = error.code;
