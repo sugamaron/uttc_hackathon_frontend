@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
-import { GetUserData, SetUserData } from "./User";
+import { SetUserData } from "./User";
 import { Header } from "./Header";
-import { MantineProvider, createTheme } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import "./style/LoginForm.css";
 import { Input } from "@mantine/core";
 
@@ -44,7 +44,7 @@ export const LoginForm = () => {
           <div className="p-5">
             <label>メールアドレス</label>
             <Input
-              className="w-3/5"
+              className="w-1/2"
               placeholder="メールアドレスを入力してください。"
               type={"text"}
               value={email}
@@ -55,7 +55,7 @@ export const LoginForm = () => {
           <div className="p-5">
             <label>パスワード</label>
             <Input
-              className="w-3/5"
+              className="w-1/2"
               placeholder="パスワードを入力してください。"
               type={"text"}
               value={password}

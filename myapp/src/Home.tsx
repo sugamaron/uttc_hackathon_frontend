@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 export const Home = () => {
   //ユーザー情報を保存するstate
   //undefined型にならないように初期値に適当な値設定する
+
   const [userProfile, setUserProfile] = useState<UserDataType>({
     user_id: "guest",
     user_name: "guest",
@@ -17,11 +18,11 @@ export const Home = () => {
 
   //sessionStorageからログイン中のユーザー情報取得
   const fetchUserData = async () => {
-    const userData = await GetUserData();
+    const userData = await GetUserData(); //await意味ない
     setUserProfile(userData);
-    if (userProfile === undefined) {
-      return;
-    }
+    // if (userProfile === undefined) {
+    //   return;
+    // }
   };
 
   useEffect(() => {
@@ -36,9 +37,17 @@ export const Home = () => {
       <div className="Profile">
         <h1>Welcome! {userProfile.user_name}</h1>
         <h2>HOME</h2>
-        <Link to={`/users/edit/${userProfile.user_id}`}>ユーザー情報変更</Link>
-        <p>いいねしたアイテム</p>
-        <Link to="/items/register">アイテム登録</Link>
+        <div>
+          <Link to={`/users/edit/${userProfile.user_id}`}>
+            ユーザー情報変更
+          </Link>
+        </div>
+        <div>
+          <Link to="/items/likes">いいねしたアイテム</Link>
+        </div>
+        <div>
+          <Link to="/items/register">アイテム登録</Link>
+        </div>
       </div>
     </div>
   );

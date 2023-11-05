@@ -80,11 +80,11 @@ export const ItemList = () => {
   return (
     <div>
       <Header />
-      <p>
+      <div>
         <LessonList />
-      </p>
+      </div>
       <div className="ItemList">
-        <p>{lesson_name}</p>
+        <div>{lesson_name}</div>
         <div className="flex">
           {categories.map((category, index) => (
             <div key={index} className="p-2">
@@ -112,7 +112,6 @@ export const ItemList = () => {
         >
           いいね順
         </Link>
-        <p></p>
 
         {items.map((item, index) => (
           <div key={index}>
@@ -121,8 +120,14 @@ export const ItemList = () => {
             </Link>
             <ul>
               <li>登録者：{item.registrant}</li>
-              <li>登録日:{item.registration_date}</li>
-              <li>更新日:{item.update_date}</li>
+              <li>
+                登録日:
+                {item.registration_date.replace("T", " ").replace("+09:00", "")}
+              </li>
+              <li>
+                更新日:
+                {item.update_date.replace("T", " ").replace("+09:00", "")}
+              </li>
               <li>いいね数:{item.likes}</li>
             </ul>
             <br />

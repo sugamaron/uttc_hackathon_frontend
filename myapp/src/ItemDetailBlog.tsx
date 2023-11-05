@@ -4,7 +4,7 @@ import { LessonList } from "./LessonList";
 import "./style/ItemDetailBlog.css";
 import { Header } from "./Header";
 import { DeleteLike, RegisterLike } from "./Like";
-import { GetUserData, UserDataType } from "./User";
+import { GetUserData } from "./User";
 
 export const ItemDetailBlog = () => {
   const history = useHistory();
@@ -13,24 +13,6 @@ export const ItemDetailBlog = () => {
   const { item_id } = useParams<{
     item_id: string;
   }>();
-
-  //ユーザー情報を保存するstate
-  //undefined型にならないように初期値に適当な値設定する
-  const [userProfile, setUserProfile] = useState<UserDataType>({
-    user_id: "guest",
-    user_name: "guest",
-    email: "guest@gmail.com",
-    term: -1,
-  });
-
-  //sessionStorageからログイン中のユーザー情報取得
-  const fetchUserData = async () => {
-    const userData = await GetUserData();
-    setUserProfile(userData);
-    if (userProfile === undefined) {
-      return;
-    }
-  };
 
   type ItemDetail = {
     title: string;
@@ -94,31 +76,31 @@ export const ItemDetailBlog = () => {
         throw Error(`Failed to get like: ${res.status}`);
       }
       const likeBool: Distinguish = await res.json();
-      console.log("likebool:" + likeBool.result);
       setLiked(likeBool.result);
-      console.log("liked:" + liked);
     } catch (err) {
       console.error(err);
     }
   };
 
+  //ユーザーのid取得
+  const userId = GetUserData().user_id;
+
   //いいねボタン押したとき
   const PushLike = () => {
-    RegisterLike(item_id, userProfile.user_id);
+    RegisterLike(item_id, userId);
+    alert("いいねしました");
     setLiked(true);
-    //history.push(`/items/blog/${item_id}`);
   };
 
   //いいね済みで、いいね解除ボタン押したとき
   const PushNotLike = () => {
-    DeleteLike(item_id, userProfile.user_id);
+    DeleteLike(item_id, userId);
+    alert("いいねを消しました");
     setLiked(false);
-    history.push(`/items/blog/${item_id}`);
   };
 
   useEffect(() => {
-    fetchUserData();
-    DistinguishLike(item_id, userProfile.user_id);
+    DistinguishLike(item_id, userId);
   }, []);
 
   useEffect(() => {
@@ -133,7 +115,7 @@ export const ItemDetailBlog = () => {
       </p>
       <div className="ItemDetailBlog">
         {item.map((i, index) => (
-          <div>
+          <div key={index}>
             <h2>{i.title}</h2>
             <p>
               登録者：{i.registrant} 登録日：{i.registration_date}

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.LoginForm {
+.SignUpForm {
     margin: 0;
     padding: 0;
     position: relative;
@@ -8,6 +8,6 @@
     left: 170px;
 }
 
-.LoginForm h1 {
+.SignUpForm h1 {
     margin: 20px;
 }
