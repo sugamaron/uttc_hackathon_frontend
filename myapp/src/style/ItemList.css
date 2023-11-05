@@ -5,11 +5,29 @@
     padding: 0;
     position: relative;
     top: 100px;
-    left: 300px;
+    left: 600px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
 .ItemList h2 {
+    font-size: 200%;
     position: relative;
-    top: 100px;
-    left: 300px;
+    /* top: 100px;
+    left: 300px; */
+}
+
+.Categories {
+    display: flex;
+    position: relative;
+    right: 40px;
+    top: 20px;
+}
+
+.Order {
+    display: flex;
+    position: relative;
+    right: 20px;
+    top: 20px;
 }

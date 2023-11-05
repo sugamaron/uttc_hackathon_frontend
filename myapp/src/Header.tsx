@@ -1,7 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
-import { useEffect, useState } from "react";
 import { useAuthContext } from "./provider/AuthProvider";
 import { DeleteUserData } from "./User";
 
@@ -24,7 +23,8 @@ export const Header = () => {
 
   return (
     <header className="text-gray-600 body-font fixed">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex p-5 flex-col md:flex-row items-center justify-between">
+        {/* items center：一直線上に横に並べる　 */}
         <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,11 +40,11 @@ export const Header = () => {
           </svg>
           <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
         </a>
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav>
+        {/* <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav> */}
         {user ? (
           <button
             onClick={logout}
-            className="ml-auto inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
           >
             ログアウト
             <svg

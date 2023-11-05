@@ -80,12 +80,12 @@ export const ItemList = () => {
   return (
     <div>
       <Header />
-      <div>
-        <LessonList />
-      </div>
+
+      <LessonList />
+
       <div className="ItemList">
-        <div>{lesson_name}</div>
-        <div className="flex">
+        <h2>{lesson_name}</h2>
+        <div className="Categories">
           {categories.map((category, index) => (
             <div key={index} className="p-2">
               <Link
@@ -97,42 +97,51 @@ export const ItemList = () => {
           ))}
         </div>
 
-        <Link
-          to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
-        >
-          登録日順
-        </Link>
-        <Link
-          to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
-        >
-          更新日順
-        </Link>
-        <Link
-          to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
-        >
-          いいね順
-        </Link>
+        <div className="Order">
+          <Link
+            className="p-2"
+            to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
+          >
+            登録日順
+          </Link>
+          <Link
+            className="p-2"
+            to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
+          >
+            更新日順
+          </Link>
+          <Link
+            className="p-2"
+            to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
+          >
+            いいね順
+          </Link>
+        </div>
 
-        {items.map((item, index) => (
-          <div key={index}>
-            <Link to={`/items/${category_id}/${item.item_id}`}>
-              {item.title}
-            </Link>
-            <ul>
-              <li>登録者：{item.registrant}</li>
-              <li>
-                登録日:
-                {item.registration_date.replace("T", " ").replace("+09:00", "")}
-              </li>
-              <li>
-                更新日:
-                {item.update_date.replace("T", " ").replace("+09:00", "")}
-              </li>
-              <li>いいね数:{item.likes}</li>
-            </ul>
-            <br />
-          </div>
-        ))}
+        <div>
+          {items.map((item, index) => (
+            <div key={index}>
+              <Link to={`/items/${category_id}/${item.item_id}`}>
+                {item.title}
+              </Link>
+              <ul>
+                <li>登録者：{item.registrant}</li>
+                <li>
+                  登録日:
+                  {item.registration_date
+                    .replace("T", " ")
+                    .replace("+09:00", "")}
+                </li>
+                <li>
+                  更新日:
+                  {item.update_date.replace("T", " ").replace("+09:00", "")}
+                </li>
+                <li>いいね数:{item.likes}</li>
+              </ul>
+              <br />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

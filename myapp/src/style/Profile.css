@@ -4,7 +4,23 @@
   margin: 0;
   padding: 0;
   display: block; 
-  margin-left: 300px;
+  width: 70%;
   position: relative;
+  left: 320px;
+  top: 100px;
+  /* background-color: aqua; */
+}
+
+.Profile h1 {
+  font-size: 250%;
+  position: relative;
+}
+
+.ProfileList {
+  position:relative;
+  left: 120px;
   top: 80px;
+  display: flex;
+  flex-direction: column;
+  font-size: 150%;
 }

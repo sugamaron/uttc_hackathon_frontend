@@ -1,8 +1,9 @@
-import { BrowserRouter, Route, Redirect, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LessonList } from "./LessonList";
 import { Header } from "./Header";
 import { GetUserData, UserDataType } from "./User";
 import "./style/Profile.css";
+// import "./style/LessonList.css";
 import { useState, useEffect } from "react";
 
 export const Home = () => {
@@ -17,12 +18,9 @@ export const Home = () => {
   });
 
   //sessionStorageからログイン中のユーザー情報取得
-  const fetchUserData = async () => {
-    const userData = await GetUserData(); //await意味ない
+  const fetchUserData = () => {
+    const userData = GetUserData();
     setUserProfile(userData);
-    // if (userProfile === undefined) {
-    //   return;
-    // }
   };
 
   useEffect(() => {
@@ -35,18 +33,21 @@ export const Home = () => {
       <LessonList />
 
       <div className="Profile">
+        <h1>HOME</h1>
         <h1>Welcome! {userProfile.user_name}</h1>
-        <h2>HOME</h2>
-        <div>
-          <Link to={`/users/edit/${userProfile.user_id}`}>
-            ユーザー情報変更
-          </Link>
-        </div>
-        <div>
-          <Link to="/items/likes">いいねしたアイテム</Link>
-        </div>
-        <div>
-          <Link to="/items/register">アイテム登録</Link>
+
+        <div className="ProfileList">
+          <div className="p-5">
+            <Link to={`/users/edit/${userProfile.user_id}`}>
+              ユーザー情報変更
+            </Link>
+          </div>
+          <div className="p-5">
+            <Link to="/items/likes">いいねしたアイテム</Link>
+          </div>
+          <div className="p-5">
+            <Link to="/items/register">アイテム登録</Link>
+          </div>
         </div>
       </div>
     </div>
