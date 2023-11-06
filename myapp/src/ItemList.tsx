@@ -1,5 +1,6 @@
 import {
   Link,
+  NavLink,
   Switch,
   useParams,
   useHistory,
@@ -87,41 +88,48 @@ export const ItemList = () => {
         <h2>{lesson_name}</h2>
         <div className="Categories">
           {categories.map((category, index) => (
-            <div key={index} className="p-2">
-              <Link
-                to={`/items/${lesson_id}/${category.category_id}/registration?lesson_name=${lesson_name}`}
+            <div key={index}>
+              <NavLink
+                activeClassName="CategoryBorder"
+                to={`/items/${lesson_id}/${category.category_id}/${order}?lesson_name=${lesson_name}`}
               >
                 {category.category_name}
-              </Link>
+              </NavLink>
             </div>
           ))}
         </div>
 
         <div className="Order">
-          <Link
+          <NavLink
+            activeClassName="CategoryBorder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
           >
             登録日順
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
+            activeClassName="CategoryBorder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
           >
             更新日順
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
+            activeClassName="CategoryBorder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
           >
             いいね順
-          </Link>
+          </NavLink>
         </div>
 
-        <div>
+        <div className="Items">
           {items.map((item, index) => (
-            <div key={index}>
-              <Link to={`/items/${category_id}/${item.item_id}`}>
+            <div key={index} className="Item">
+              <Link
+                className="font-bold"
+                to={`/items/${category_id}/${item.item_id}`}
+              >
                 {item.title}
               </Link>
               <ul>
