@@ -1,7 +1,7 @@
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
-import "./style/ItemDetailBlog.css";
+import "./style/ItemDetail.css";
 import { Header } from "./Header";
 import { DeleteLike, RegisterLike } from "./Like";
 import { GetUserData } from "./User";
@@ -110,33 +110,70 @@ export const ItemDetailBlog = () => {
   return (
     <div>
       <Header />
-      <p>
-        <LessonList />
-      </p>
-      <div className="ItemDetailBlog">
+
+      <LessonList />
+
+      <div className="ItemDetail">
         {item.map((i, index) => (
           <div key={index}>
             <h2>{i.title}</h2>
-            <p>
-              登録者：{i.registrant} 登録日：{i.registration_date}
-            </p>
-            <p>
-              更新者：{i.updater} 更新日：{i.update_date}
-            </p>
-            <p>{i.description}</p>
-            <a href={i.url}>ブログを読む</a>
 
-            <p>いいね {i.likes}</p>
+            <div className="Date">
+              <div className="flex">
+                <p className="p-2">登録者：{i.registrant}</p>
+                <p className="p-2">
+                  登録日：
+                  {i.registration_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+              <div className="flex">
+                <p className="p-2">更新者：{i.updater}</p>
+                <p className="p-2">
+                  更新日：
+                  {i.update_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+            </div>
 
-            {liked ? (
-              <button onClick={PushNotLike}>いいねを消す</button>
-            ) : (
-              <button onClick={PushLike}>いいね</button>
-            )}
+            <div className="Description">{i.description}</div>
 
-            <Link to={`/items/edit/${item_id}`}>編集</Link>
+            <div className="Url">
+              <a href={i.url}>ブログを読む</a>
+            </div>
 
-            <button onClick={DeleteItem}>このアイテムを削除</button>
+            <div className="Menu">
+              <div className="flex">
+                <div className="text-red-400">{i.likes}</div>
+                {liked ? (
+                  <div>
+                    <div className="heart-solid icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushNotLike}
+                    >
+                      いいねを消す
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="heart icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushLike}
+                    >
+                      いいねする
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div>
+                <Link to={`/items/edit/${item_id}`}>このアイテムを編集</Link>
+              </div>
+
+              <div>
+                <button onClick={DeleteItem}>このアイテムを削除</button>
+              </div>
+            </div>
           </div>
         ))}
       </div>

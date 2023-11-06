@@ -1,7 +1,14 @@
-import { Link, Redirect, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
 import { GetUserData } from "./User";
+import "./style/ItemRegister.css";
+import { MantineProvider } from "@mantine/core";
+import { Input } from "@mantine/core";
+import { Button } from "@mantine/core";
+import { Textarea } from "@mantine/core";
+import { Select } from "@mantine/core";
+import { Header } from "./Header";
 
 export const RegisterItem = () => {
   const history = useHistory();
@@ -15,6 +22,11 @@ export const RegisterItem = () => {
   type Lesson = {
     lesson_id: string;
     lesson_name: string;
+  };
+  //selectタグで指定するための型
+  type LessonForSelect = {
+    value: string;
+    label: string;
   };
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const fetchLessons = async () => {
@@ -62,21 +74,26 @@ export const RegisterItem = () => {
   const updater = userData.user_name;
 
   const [title, setTitle] = useState("");
-  const [category_id, setCategoryId] = useState("");
-  const [lesson_id, setLessonId] = useState("");
+  const [category_id, setCategoryId] = useState<string | null>("");
+  const [lesson_id, setLessonId] = useState<string | null>("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [price, setPrice] = useState(0);
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (category_id == "notSelected") {
-      alert("登録するアイテムのカテゴリを入力してください。");
+    if (lesson_id === null) {
+      alert("登録するアイテムの章を入力してください。");
+      return;
     }
 
-    if (lesson_id == "notSelected") {
+    if (category_id === null) {
       alert("登録するアイテムのカテゴリを入力してください。");
+      return;
+    }
+
+    if (category_id == "book" && price != 0) {
+      alert("priceには何も入力しないでください");
     }
 
     try {
@@ -103,7 +120,6 @@ export const RegisterItem = () => {
     } catch (err) {
       console.error(err);
     }
-    //history.push("/home");
   };
 
   useEffect(() => {
@@ -112,68 +128,96 @@ export const RegisterItem = () => {
   }, []);
 
   return (
-    <div>
+    <MantineProvider>
+      <Header />
       <LessonList />
 
-      <form onSubmit={onsubmit}>
-        <label>タイトル</label>
-        <input
-          type={"text"}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      <div className="ItemRegister">
+        <h1>アイテム登録</h1>
+        <form onSubmit={onsubmit}>
+          <div className="RegsiterForm">
+            <div className="p-5">
+              <label>タイトル</label>
+              <Input
+                className="w-1/2"
+                placeholder="新しいタイトルを入力してください"
+                type={"text"}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>カリキュラムの章</label>
+              <Select
+                className="w-1/2"
+                name="lesson"
+                placeholder="カリキュラムの章を選択してください"
+                value={lesson_id}
+                data={lessons.map((lesson) => ({
+                  value: lesson.lesson_id,
+                  label: lesson.lesson_name,
+                }))}
+                onChange={setLessonId}
+              ></Select>
+            </div>
+            <div className="p-5">
+              <label>アイテムカテゴリ</label>
+              <Select
+                className="w-1/2"
+                name="category"
+                placeholder="アイテムカテゴリを選択してください"
+                value={category_id}
+                data={categories.map((category) => ({
+                  value: category.category_id,
+                  label: category.category_name,
+                }))}
+                onChange={setCategoryId}
+              ></Select>
+            </div>
+            <div className="p-5">
+              <label>URL</label>
+              <Input
+                className="w-1/2"
+                placeholder="URLを入力してください"
+                type={"text"}
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>説明文</label>
+              <Textarea
+                className="w-1/2"
+                size="md"
+                placeholder="説明文を入力してください"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>価格(技術書の場合)</label>
+              <Input
+                className="w-1/2"
+                placeholder="価格を入力してください(技術書の場合のみ)"
+                type={"number"}
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
+              />
+            </div>
+          </div>
 
-        <label>カリキュラムの章</label>
-        <select
-          name="lesson"
-          value={lesson_id}
-          onChange={(e) => setLessonId(e.target.value)}
-        >
-          <option value="notSelected">選択してください</option>
-          {lessons.map((lesson, index) => (
-            <option key={index} value={lesson.lesson_id}>
-              {lesson.lesson_name}
-            </option>
-          ))}
-        </select>
-
-        <label>アイテムカテゴリ</label>
-        <select
-          name="category"
-          value={category_id}
-          onChange={(e) => setCategoryId(e.target.value)}
-        >
-          <option value="notSelected">選択してください</option>
-          {categories.map((category, index) => (
-            <option key={index} value={category.category_id}>
-              {category.category_name}
-            </option>
-          ))}
-        </select>
-
-        <label>URL</label>
-        <input
-          type={"text"}
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
-
-        <label>説明文</label>
-        <textarea
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        <label>価格(技術書の場合)</label>
-        <input
-          type={"number"}
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-        />
-
-        <button type={"submit"}>アイテム登録</button>
-      </form>
-    </div>
+          <Button
+            className="RegisterButton"
+            variant="default"
+            color="rgba(209, 207, 207, 1)"
+            type={"submit"}
+            size="md"
+          >
+            登録
+          </Button>
+        </form>
+      </div>
+    </MantineProvider>
   );
 };

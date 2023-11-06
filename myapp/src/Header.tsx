@@ -3,6 +3,7 @@ import { signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useAuthContext } from "./provider/AuthProvider";
 import { DeleteUserData } from "./User";
+import "./style/Header.css";
 
 export const Header = () => {
   const history = useHistory();
@@ -22,8 +23,9 @@ export const Header = () => {
   };
 
   return (
-    <header className="text-gray-600 body-font fixed">
-      <div className="container mx-auto flex p-5 flex-col md:flex-row items-center justify-between">
+    // <header className="text-gray-600 body-font fixed">
+    <header>
+      <div className="container mx-auto flex p-5 flex-col md:flex-row items-center">
         {/* items center：一直線上に横に並べる　 */}
         <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
           <svg
@@ -40,6 +42,8 @@ export const Header = () => {
           </svg>
           <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
         </a>
+        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav>
+
         {/* <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav> */}
         {user ? (
           <button

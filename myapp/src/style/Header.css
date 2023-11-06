@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+header {
+    color: #6b7280; /* text-gray-600 */
+    font-family: inherit; /* body-font */
+    position: fixed; /* fixed */
+    width: 100vw;
+    z-index: 100;
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}

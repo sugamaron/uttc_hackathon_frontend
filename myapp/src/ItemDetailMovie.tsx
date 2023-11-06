@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
-import "./style/ItemDetailMovie.css";
+import "./style/ItemDetail.css";
 import { Header } from "./Header";
 import { DeleteLike, RegisterLike } from "./Like";
 import { GetUserData } from "./User";
@@ -15,9 +15,9 @@ export const ItemDetailMovie = () => {
   type ItemDetail = {
     title: string;
     registrant: string;
-    registrationDate: string;
+    registration_date: string;
     updater: string;
-    updateDate: string;
+    update_date: string;
     description: string;
     url: string;
     likes: number;
@@ -106,10 +106,80 @@ export const ItemDetailMovie = () => {
   return (
     <div>
       <Header />
-      <p>
-        <LessonList />
-      </p>
-      <div className="ItemDetailMovie">
+
+      <LessonList />
+
+      <div className="ItemDetail">
+        {item.map((i, index) => (
+          <div key={index}>
+            <h2>{i.title}</h2>
+
+            <div className="Date">
+              <div className="flex">
+                <p className="p-2">登録者：{i.registrant}</p>
+                <p className="p-2">
+                  登録日：
+                  {i.registration_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+              <div className="flex">
+                <p className="p-2">更新者：{i.updater}</p>
+                <p className="p-2">
+                  更新日：
+                  {i.update_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+            </div>
+
+            <div className="Description">{i.description}</div>
+
+            <div className="Movie">
+              <iframe
+                width="560"
+                height="315"
+                src={i.url}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen;"
+              ></iframe>
+            </div>
+
+            <div className="Menu">
+              <div className="flex">
+                <div className="text-red-400">{i.likes}</div>
+                {liked ? (
+                  <div>
+                    <div className="heart-solid icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushNotLike}
+                    >
+                      いいねを消す
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="heart icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushLike}
+                    >
+                      いいねする
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div>
+                <Link to={`/items/edit/${item_id}`}>このアイテムを編集</Link>
+              </div>
+
+              <div>
+                <button onClick={DeleteItem}>このアイテムを削除</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* <div className="ItemDetailMovie">
         {item.map((i, index) => (
           <div key={index}>
             <h2>{i.title}</h2>
@@ -138,7 +208,7 @@ export const ItemDetailMovie = () => {
             <button onClick={DeleteItem}>このアイテムを削除</button>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

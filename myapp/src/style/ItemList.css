@@ -63,3 +63,12 @@
     text-decoration:underline; 
 }
 
+/* .hover\:text-dark:hover {
+    --tw-text-opacity: 1;
+    color: rgb(12 25 59 / var(--tw-text-opacity));
+}
+
+.text-stone-500 {
+    --tw-text-opacity: 1;
+    color: rgb(120 113 108 / var(--tw-text-opacity));
+    } */

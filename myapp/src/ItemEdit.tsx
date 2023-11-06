@@ -1,7 +1,13 @@
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { LessonList } from "./LessonList";
 import { GetUserData } from "./User";
+import { Header } from "./Header";
+import "./style/ItemEdit.css";
+import { MantineProvider } from "@mantine/core";
+import { Input } from "@mantine/core";
+import { Button } from "@mantine/core";
+import { Textarea } from "@mantine/core";
 
 export const EditItem = () => {
   //パスパラメータ取得
@@ -42,30 +48,54 @@ export const EditItem = () => {
   };
 
   return (
-    <div>
+    <MantineProvider>
+      <Header />
       <LessonList />
-
-      <form onSubmit={onsubmit}>
-        <label>タイトル</label>
-        <input
-          type={"text"}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>説明文</label>
-        <input
-          type={"text"}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label>URL</label>
-        <input
-          type={"text"}
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
-        <button type={"submit"}>更新</button>
-      </form>
-    </div>
+      <div className="ItemEdit">
+        <h1>アイテム編集</h1>
+        <form onSubmit={onsubmit}>
+          <div className="EditForm">
+            <div className="p-5">
+              <label>タイトル</label>
+              <Input
+                className="w-1/2"
+                placeholder="新しいタイトルを入力してください"
+                type={"text"}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>説明文</label>
+              <Textarea
+                className="w-1/2"
+                size="md"
+                placeholder="新しい説明文を入力してください"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>URL</label>
+              <Input
+                className="w-1/2"
+                placeholder="新しいURLを入力してください"
+                type={"text"}
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+          </div>
+          <Button
+            className="EditButton"
+            variant="default"
+            color="rgba(209, 207, 207, 1)"
+            type={"submit"}
+          >
+            更新
+          </Button>
+        </form>
+      </div>
+    </MantineProvider>
   );
 };

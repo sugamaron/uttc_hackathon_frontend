@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
-import "./style/ItemDetailBlog.css";
+import "./style/ItemDetail.css";
 import { Header } from "./Header";
 import { DeleteLike, RegisterLike } from "./Like";
 import { GetUserData } from "./User";
@@ -15,9 +15,9 @@ export const ItemDetailBook = () => {
   type ItemDetail = {
     title: string;
     registrant: string;
-    registrationDate: string;
+    registration_date: string;
     updater: string;
-    updateDate: string;
+    update_date: string;
     description: string;
     url: string;
     likes: number;
@@ -30,9 +30,9 @@ export const ItemDetailBook = () => {
   type ItemBookDetail = {
     title: string;
     registrant: string;
-    registrationDate: string;
+    registration_date: string;
     updater: string;
-    updateDate: string;
+    update_date: string;
     description: string;
     url: string;
     likes: number;
@@ -59,7 +59,7 @@ export const ItemDetailBook = () => {
     }
   };
 
-  //カテゴリ技術書特有のデータ取得
+  //技術書カテゴリ特有のデータ取得
   const [book, setBook] = useState<BookDetail[]>([]);
 
   const fetchBookDetail = async () => {
@@ -133,6 +133,7 @@ export const ItemDetailBook = () => {
 
   useEffect(() => {
     DistinguishLike(item_id, userId);
+    fetchBookDetail();
   }, []);
 
   useEffect(() => {
@@ -142,31 +143,75 @@ export const ItemDetailBook = () => {
   return (
     <div>
       <Header />
-      <p>
-        <LessonList />
-      </p>
-      <div className="ItemDetailBook">
+
+      <LessonList />
+
+      <div className="ItemDetail">
         {item.map((i, index) => (
           <div key={index}>
             <h2>{i.title}</h2>
-            <p>
-              {i.registrant} {i.registrationDate}
-            </p>
-            <p>
-              {i.updater} {i.updateDate}
-            </p>
-            <p>{i.description}</p>
-            <p>{book.map((b) => b.price)}円</p>
-            <a href={i.url}>購入サイトへ進む</a>
-            <p>いいね {i.likes}</p>
 
-            {liked ? (
-              <button onClick={PushNotLike}>いいねを消す</button>
-            ) : (
-              <button onClick={PushLike}>いいね</button>
-            )}
-            <p>編集</p>
-            <button onClick={DeleteItem}>このアイテムを削除</button>
+            <div className="Date">
+              <div className="flex">
+                <p className="p-2">登録者：{i.registrant}</p>
+                <p className="p-2">
+                  登録日：
+                  {i.registration_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+              <div className="flex">
+                <p className="p-2">更新者：{i.updater}</p>
+                <p className="p-2">
+                  更新日：
+                  {i.update_date.replace("T", " ").replace("+09:00", "")}
+                </p>
+              </div>
+            </div>
+
+            <div className="Description">{i.description}</div>
+
+            <div className="PriceUrl">
+              {book.map((b, index) => (
+                <div key={index}>{`価格：${b.price}円`}</div>
+              ))}
+              <div className="bookUrl">
+                <a href={i.url}>購入サイトに進む</a>
+              </div>
+            </div>
+
+            <div className="Menu">
+              <div className="flex">
+                <div className="text-red-400">{i.likes}</div>
+                {liked ? (
+                  <div>
+                    <div className="heart-solid icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushNotLike}
+                    >
+                      いいねを消す
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="heart icon"></div>
+                    <button
+                      className="transform translate-x-5"
+                      onClick={PushLike}
+                    >
+                      いいねする
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div>
+                <Link to={`/items/edit/${item_id}`}>このアイテムを編集</Link>
+              </div>
+
+              <div>
+                <button onClick={DeleteItem}>このアイテムを削除</button>
+              </div>
+            </div>
           </div>
         ))}
       </div>

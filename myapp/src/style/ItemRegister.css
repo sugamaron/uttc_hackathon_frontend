@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.ItemRegister {
+    position: relative;
+    top: 150px;
+    left: 400px;
+}
+
+.ItemRegister h1 {
+    font-size: 150%;
+
+}
+
+.RegisterForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.RegisterButton {
+    margin: 50px;
+    position: relative;
+    left: 600px;
+}
