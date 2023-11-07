@@ -21,23 +21,25 @@ export const ItemDetailBook = () => {
     description: string;
     url: string;
     likes: number;
+    image_url: string;
   };
 
   type BookDetail = {
     price: number;
   };
 
-  type ItemBookDetail = {
-    title: string;
-    registrant: string;
-    registration_date: string;
-    updater: string;
-    update_date: string;
-    description: string;
-    url: string;
-    likes: number;
-    price: number;
-  };
+  // type ItemBookDetail = {
+  //   title: string;
+  //   registrant: string;
+  //   registration_date: string;
+  //   updater: string;
+  //   update_date: string;
+  //   description: string;
+  //   url: string;
+  //   likes: number;
+  //   price: number;
+  //   image_url: string
+  // };
 
   //アイテム詳細取得
   const [item, setItem] = useState<ItemDetail[]>([]);
@@ -168,11 +170,23 @@ export const ItemDetailBook = () => {
               </div>
             </div>
 
+            {/* <div className="flex-col"> */}
             <div className="Description">{i.description}</div>
+
+            <div className="flex justify-center">
+              <img
+                className="BookImage"
+                src={i.image_url}
+                alt="画像が表示できません"
+              />
+            </div>
 
             <div className="PriceUrl">
               {book.map((b, index) => (
-                <div key={index}>{`価格：${b.price}円`}</div>
+                <div
+                  className="text-lg"
+                  key={index}
+                >{`価格：${b.price}円`}</div>
               ))}
               <div className="bookUrl">
                 <a href={i.url}>購入サイトに進む</a>
@@ -212,6 +226,7 @@ export const ItemDetailBook = () => {
                 <button onClick={DeleteItem}>このアイテムを削除</button>
               </div>
             </div>
+            {/* </div> */}
           </div>
         ))}
       </div>

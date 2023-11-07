@@ -23,6 +23,7 @@ export const ItemDetailBlog = () => {
     description: string;
     url: string;
     likes: number;
+    image_url: string;
   };
 
   //アイテム詳細取得
@@ -112,6 +113,12 @@ export const ItemDetailBlog = () => {
       <Header />
 
       <LessonList />
+      {/* <div>
+        <img
+          src="https://ferret.akamaized.net/uploads/article/610/og_image/default-bdf2027367621662f48bdc85408bf81b.jpg"
+          alt="test"
+        />
+      </div> */}
 
       <div className="ItemDetail">
         {item.map((i, index) => (
@@ -136,6 +143,14 @@ export const ItemDetailBlog = () => {
             </div>
 
             <div className="Description">{i.description}</div>
+
+            <div className="flex justify-center">
+              <img
+                className="BlogImage"
+                src={i.image_url}
+                alt="画像が表示できません"
+              />
+            </div>
 
             <div className="Url">
               <a href={i.url}>ブログを読む</a>

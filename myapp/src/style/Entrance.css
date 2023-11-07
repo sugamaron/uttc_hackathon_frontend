@@ -4,11 +4,14 @@
     margin: 0;
     padding: 0;
     position: relative;
-    top: 100px;
-    left: 200px;
+    top: 200px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
 
-.Link {
-    margin: 20px;
+.EntranceLink {
+    font-size: 150%;
+    margin: 80px;
     
 }

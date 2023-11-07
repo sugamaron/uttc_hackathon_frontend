@@ -44,7 +44,6 @@
 .Items {
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
 .Item {
@@ -55,12 +54,33 @@
     border: 1px solid #000;
 }
 
+.ImagePosition {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ItemListData {
+    /* margin: 0 0 0 auto; */
+    position: relative;
+   /* right: 100px; */
+   width: 120%;
+    /* bottom: 100px; */
+}
+
 .CategoryBorder {
     text-decoration:underline; 
 }
 
 .OrderBorder {
     text-decoration:underline; 
+}
+
+.ItemListImage {
+    margin: 0px;
+    padding: 0px;
+    height: 35%;
+    width: 35%;
 }
 
 /* .hover\:text-dark:hover {

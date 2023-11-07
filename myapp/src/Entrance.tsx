@@ -8,14 +8,14 @@ export const Entrance = () => {
   return (
     <div>
       <Header />
-      <p className="Entrance">
-        <Link to="/login" className="Link">
+      <div className="Entrance">
+        <Link to="/login" className="EntranceLink">
           アカウントをお持ちの方
         </Link>
-        <Link to="/signup" className="Link">
+        <Link to="/signup" className="EntranceLink">
           アカウントをお持ちでない方
         </Link>
-      </p>
+      </div>
     </div>
   );
 };

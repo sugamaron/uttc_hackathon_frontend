@@ -1,11 +1,4 @@
-import {
-  Link,
-  NavLink,
-  Switch,
-  useParams,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Link, NavLink, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
 import "./style/ItemList.css";
@@ -22,6 +15,7 @@ type Item = {
   registration_date: string;
   update_date: string;
   likes: number;
+  image_url: string;
 };
 
 export const ItemList = () => {
@@ -81,7 +75,6 @@ export const ItemList = () => {
   return (
     <div>
       <Header />
-
       <LessonList />
 
       <div className="ItemList">
@@ -132,21 +125,32 @@ export const ItemList = () => {
               >
                 {item.title}
               </Link>
-              <ul>
-                <li>登録者：{item.registrant}</li>
-                <li>
-                  登録日:
-                  {item.registration_date
-                    .replace("T", " ")
-                    .replace("+09:00", "")}
-                </li>
-                <li>
-                  更新日:
-                  {item.update_date.replace("T", " ").replace("+09:00", "")}
-                </li>
-                <li>いいね数:{item.likes}</li>
-              </ul>
-              <br />
+              <div className="ImagePosition">
+                <div>
+                  <img
+                    className="ItemListImage"
+                    src={item.image_url}
+                    alt="画像を表示できません"
+                  />
+                </div>
+                <div className="ItemListData">
+                  <ul>
+                    <li>登録者：{item.registrant}</li>
+                    <li>
+                      登録日:
+                      {item.registration_date
+                        .replace("T", " ")
+                        .replace("+09:00", "")}
+                    </li>
+                    <li>
+                      更新日:
+                      {item.update_date.replace("T", " ").replace("+09:00", "")}
+                    </li>
+                    <li>いいね数:{item.likes}</li>
+                  </ul>
+                </div>
+              </div>
+              {/* <br /> */}
             </div>
           ))}
         </div>
