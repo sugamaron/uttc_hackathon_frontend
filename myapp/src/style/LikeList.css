@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.LikeList {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 100px;
+    left: 500px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LikeList h2 {
+    font-size: 180%;
+    padding: 30px;
+    
+}
+
+.LikeItem {
+    height: 220px;
+    width: 600px;
+    padding: 5px;
+    margin: 20px;
+    border: 1px solid #000;
+}

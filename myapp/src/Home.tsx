@@ -34,7 +34,7 @@ export const Home = () => {
 
       <div className="Profile">
         <h1>HOME</h1>
-        <h1>Welcome! {userProfile.user_name}</h1>
+        <h1>Welcome! {userProfile.user_name}!</h1>
 
         <div className="ProfileList">
           <div className="p-5">

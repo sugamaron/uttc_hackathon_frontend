@@ -3,6 +3,7 @@ import { LessonList } from "./LessonList";
 import { GetUserData } from "./User";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./style/LikeList.css";
 
 export const LikeList = () => {
   type LikedItem = {
@@ -45,20 +46,23 @@ export const LikeList = () => {
       <Header />
       <LessonList />
 
-      {items.map((item, index) => (
-        <div key={index}>
-          <Link to={`/items/${item.category_id}/${item.item_id}`}>
-            {item.title}
-          </Link>
-          <ul>
-            <li>登録者：{item.registrant}</li>
-            <li>登録日:{item.registration_date}</li>
-            <li>更新日:{item.update_date}</li>
-            <li>いいね数:{item.likes}</li>
-          </ul>
-          <br />
-        </div>
-      ))}
+      <div className="LikeList">
+        <h2>いいねしたアイテム一覧</h2>
+        {items.map((item, index) => (
+          <div className="LikeItem" key={index}>
+            <Link to={`/items/${item.category_id}/${item.item_id}`}>
+              {item.title}
+            </Link>
+            <ul>
+              <li>登録者：{item.registrant}</li>
+              <li>登録日:{item.registration_date}</li>
+              <li>更新日:{item.update_date}</li>
+              <li>いいね数:{item.likes}</li>
+            </ul>
+            <br />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

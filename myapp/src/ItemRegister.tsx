@@ -11,23 +11,19 @@ import { Select } from "@mantine/core";
 import { Header } from "./Header";
 
 export const RegisterItem = () => {
-  const history = useHistory();
+  // const history = useHistory();
 
   //パスパラメータ取得
-  const { item_id } = useParams<{
-    item_id: string;
-  }>();
+  // const { item_id } = useParams<{
+  //   item_id: string;
+  // }>();
 
   //章一覧取得
   type Lesson = {
     lesson_id: string;
     lesson_name: string;
   };
-  //selectタグで指定するための型
-  type LessonForSelect = {
-    value: string;
-    label: string;
-  };
+
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const fetchLessons = async () => {
     try {
@@ -78,10 +74,23 @@ export const RegisterItem = () => {
   const [lesson_id, setLessonId] = useState<string | null>("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
-  const [price, setPrice] = useState(0);
+  const [priceStr, setPriceStr] = useState("");
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    //文字列型のpriceStrをnumberに変換する
+    const price = Number(priceStr);
+    if (Number.isNaN(price)) {
+      alert("半角数字を入力してください。");
+      return;
+    }
+
+    if (price != 0 && category_id != "book") {
+      alert("技術ブログ、技術動画の場合は価格には何も入力しないでください");
+      return;
+    }
+
     if (lesson_id === null) {
       alert("登録するアイテムの章を入力してください。");
       return;
@@ -201,8 +210,8 @@ export const RegisterItem = () => {
                 className="w-1/2"
                 placeholder="価格を入力してください(技術書の場合のみ)"
                 type={"number"}
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
+                value={priceStr}
+                onChange={(e) => setPriceStr(e.target.value)}
               />
             </div>
           </div>
