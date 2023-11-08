@@ -113,12 +113,6 @@ export const ItemDetailBlog = () => {
       <Header />
 
       <LessonList />
-      {/* <div>
-        <img
-          src="https://ferret.akamaized.net/uploads/article/610/og_image/default-bdf2027367621662f48bdc85408bf81b.jpg"
-          alt="test"
-        />
-      </div> */}
 
       <div className="ItemDetail">
         {item.map((i, index) => (

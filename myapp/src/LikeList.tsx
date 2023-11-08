@@ -57,7 +57,10 @@ export const LikeList = () => {
               <li>登録者：{item.registrant}</li>
               <li>登録日:{item.registration_date}</li>
               <li>更新日:{item.update_date}</li>
-              <li>いいね数:{item.likes}</li>
+              <li>
+                <div className="heart-solid icon"></div>
+                <div className="HeartNum">{item.likes}</div>
+              </li>
             </ul>
             <br />
           </div>

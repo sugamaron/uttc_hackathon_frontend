@@ -83,7 +83,7 @@ export const ItemList = () => {
           {categories.map((category, index) => (
             <div key={index}>
               <NavLink
-                activeClassName="CategoryBorder"
+                activeClassName="SelectedCategory"
                 to={`/items/${lesson_id}/${category.category_id}/${order}?lesson_name=${lesson_name}`}
               >
                 {category.category_name}
@@ -94,21 +94,21 @@ export const ItemList = () => {
 
         <div className="Order">
           <NavLink
-            activeClassName="CategoryBorder"
+            activeClassName="SelectedOrder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/registration?lesson_name=${lesson_name}`}
           >
             登録日順
           </NavLink>
           <NavLink
-            activeClassName="CategoryBorder"
+            activeClassName="SelectedOrder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/update?lesson_name=${lesson_name}`}
           >
             更新日順
           </NavLink>
           <NavLink
-            activeClassName="CategoryBorder"
+            activeClassName="SelectedOrder"
             className="p-2"
             to={`/items/${lesson_id}/${category_id}/likes?lesson_name=${lesson_name}`}
           >
@@ -146,7 +146,10 @@ export const ItemList = () => {
                       更新日:
                       {item.update_date.replace("T", " ").replace("+09:00", "")}
                     </li>
-                    <li>いいね数:{item.likes}</li>
+                    <li>
+                      <div className="heart-solid icon"></div>
+                      <div className="HeartNum">{item.likes}</div>
+                    </li>
                   </ul>
                 </div>
               </div>

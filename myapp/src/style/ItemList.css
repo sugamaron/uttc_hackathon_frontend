@@ -68,7 +68,12 @@
     /* bottom: 100px; */
 }
 
-.CategoryBorder {
+.SelectedCategory {
+    font-weight: bold;
+    text-decoration:underline; 
+}
+
+.SelectedOrder {
     text-decoration:underline; 
 }
 
@@ -81,6 +86,12 @@
     padding: 0px;
     height: 35%;
     width: 35%;
+}
+
+.HeartNum {
+    position: relative;
+    left: 20px;
+    top: 2px;
 }
 
 /* .hover\:text-dark:hover {

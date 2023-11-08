@@ -12,8 +12,8 @@ import { EditItem } from "./ItemEdit";
 import { RegisterItem } from "./ItemRegister";
 import { EditProfile } from "./ProfileEdit";
 import { AuthProvider } from "./provider/AuthProvider";
-import { useAuthContext } from "./provider/AuthProvider";
-import { GlobalAuthState } from "./provider/AuthProvider";
+// import { useAuthContext } from "./provider/AuthProvider";
+// import { GlobalAuthState } from "./provider/AuthProvider";
 import { GetUserAuth } from "./User";
 import { LikeList } from "./LikeList";
 
