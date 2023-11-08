@@ -11,13 +11,6 @@ import { Select } from "@mantine/core";
 import { Header } from "./Header";
 
 export const RegisterItem = () => {
-  // const history = useHistory();
-
-  //パスパラメータ取得
-  // const { item_id } = useParams<{
-  //   item_id: string;
-  // }>();
-
   //章一覧取得
   type Lesson = {
     lesson_id: string;
@@ -75,6 +68,7 @@ export const RegisterItem = () => {
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [priceStr, setPriceStr] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -101,8 +95,9 @@ export const RegisterItem = () => {
       return;
     }
 
-    if (category_id == "book" && price != 0) {
-      alert("priceには何も入力しないでください");
+    if (category_id != "book" && price != 0) {
+      alert("価格には何も入力しないでください");
+      return;
     }
 
     try {
@@ -119,6 +114,7 @@ export const RegisterItem = () => {
             description: description,
             url: url,
             price: price,
+            image_url: imageUrl,
           }),
         }
       );
@@ -149,7 +145,7 @@ export const RegisterItem = () => {
               <label>タイトル</label>
               <Input
                 className="w-1/2"
-                placeholder="新しいタイトルを入力してください"
+                placeholder="タイトルを入力してください"
                 type={"text"}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -191,6 +187,16 @@ export const RegisterItem = () => {
                 type={"text"}
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+            <div className="p-5">
+              <label>画像のURL</label>
+              <Input
+                className="w-1/2"
+                placeholder="画像のURLを入力してください(無い場合は何も入力しないでください)"
+                type={"text"}
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
             </div>
             <div className="p-5">
