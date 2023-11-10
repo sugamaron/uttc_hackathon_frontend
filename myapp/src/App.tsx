@@ -16,6 +16,7 @@ import { AuthProvider } from "./provider/AuthProvider";
 // import { GlobalAuthState } from "./provider/AuthProvider";
 import { GetUserAuth } from "./User";
 import { LikeList } from "./LikeList";
+import { ItemSearch } from "./ItemSearch";
 
 function App() {
   type Props = {
@@ -64,6 +65,7 @@ function App() {
           <RouteAuthGuard path="/items/edit/:item_id" component={EditItem} />
           <RouteAuthGuard path="/items/register" component={RegisterItem} />
           <RouteAuthGuard path="/items/likes" component={LikeList} />
+          <RouteAuthGuard path="/items/search" component={ItemSearch} />
           <RouteAuthGuard
             path="/items/:lesson_id/:category_id/:order"
             component={ItemList}

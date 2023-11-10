@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.ItemSearch {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 100px;
+    left: 500px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ItemSearch h1 {
+    font-size: 150%;
+}

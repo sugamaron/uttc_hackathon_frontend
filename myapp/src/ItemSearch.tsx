@@ -1,37 +1,38 @@
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { LessonList } from "./LessonList";
-import { GetUserData } from "./User";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./style/LikeList.css";
+import "./style/ItemSearch.css";
 
-export const LikeList = () => {
-  type LikedItem = {
-    item_id: string;
-    title: string;
-    registrant: string;
-    registration_date: string;
-    update_date: string;
-    likes: number;
-    category_id: string;
-    image_url: string;
-  };
+type Item = {
+  item_id: string;
+  title: string;
+  registrant: string;
+  registration_date: string;
+  update_date: string;
+  likes: number;
+  image_url: string;
+  category_id: string;
+};
 
-  const user_id = GetUserData().user_id;
+export const ItemSearch = () => {
+  const search = useLocation().search;
+  const query = new URLSearchParams(search);
+  const titleString = query.get("title_string");
 
-  //いいねしたアイテム一覧取得
-  const [items, setItems] = useState<LikedItem[]>([]);
+  //titleString文字列をタイトルに含むアイテム取得
+  const [items, setItems] = useState<Item[]>([]);
   const fetchItems = async () => {
     try {
       const res = await fetch(
-        `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items/likes?user_id=${user_id}`,
+        `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items/search?title_string=${titleString}`,
         { method: "GET" }
       );
       if (!res.ok) {
         throw Error(`Failed to fetch items: ${res.status}`);
       }
 
-      const items: LikedItem[] = await res.json();
+      const items: Item[] = await res.json();
       setItems(items);
     } catch (err) {
       console.error(err);
@@ -40,32 +41,14 @@ export const LikeList = () => {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [titleString]);
 
   return (
     <div>
       <Header />
       <LessonList />
-
-      <div className="LikeList">
-        <h2>いいねしたアイテム一覧</h2>
-        {/* {items.map((item, index) => (
-          <div className="LikeItem" key={index}>
-            <Link to={`/items/${item.category_id}/${item.item_id}`}>
-              {item.title}
-            </Link>
-            <ul>
-              <li>登録者：{item.registrant}</li>
-              <li>登録日:{item.registration_date}</li>
-              <li>更新日:{item.update_date}</li>
-              <li>
-                <div className="heart-solid icon"></div>
-                <div className="HeartNum">{item.likes}</div>
-              </li>
-            </ul>
-            <br />
-          </div>
-        ))} */}
+      <div className="ItemSearch">
+        <h1>検索結果：{titleString}</h1>
         <div className="Items">
           {items.map((item, index) => (
             <div key={index} className="Item">
