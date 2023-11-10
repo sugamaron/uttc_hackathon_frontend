@@ -5,12 +5,15 @@ import { SetUserData } from "./User";
 import { MantineProvider, Input } from "@mantine/core";
 import "./style/SignUp.css";
 import { Header } from "./Header";
+import { PasswordInput } from "@mantine/core";
+import { Select } from "@mantine/core";
 
 export const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const [termStr, setTermStr] = useState("");
+  const [termStr, setTermStr] = useState<string | null>("");
 
   const auth = getAuth();
   const history = useHistory();
@@ -23,15 +26,40 @@ export const SignUpForm = () => {
   const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    //文字列型のtermStrをnumberに変換する
-    const term = Number(termStr);
-    if (Number.isNaN(term)) {
-      alert("半角数字を入力してください。");
+    if (termStr === "") {
+      alert("期を選択してください");
       return;
     }
 
-    if (term > 4 || term < 0) {
-      alert("0から4までの半角数字を入力してください。");
+    //文字列型のtermStrをnumberに変換する
+    const term = Number(termStr);
+    // if (Number.isNaN(term)) {
+    //   alert("期の欄には半角数字を入力してください。");
+    //   return;
+    // }
+
+    // if (term > 4 || term < 0) {
+    //   alert("0から4までの半角数字を入力してください。");
+    //   return;
+    // }
+
+    if (userName == "") {
+      alert("ユーザー名を入力してください");
+      return;
+    }
+
+    if (password == "") {
+      alert("パスワードを入力してください");
+      return;
+    }
+
+    if (email == "") {
+      alert("メールアドレスを入力してください");
+      return;
+    }
+
+    if (password != confirmPassword) {
+      alert("パスワードが一致しません");
       return;
     }
 
@@ -58,6 +86,8 @@ export const SignUpForm = () => {
           }
         } catch (err) {
           console.error(err);
+          alert("アカウント登録に失敗しました");
+          return;
         }
         //sessionStorageにユーザー情報保存
         SaveUserData();
@@ -86,16 +116,32 @@ export const SignUpForm = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           <div className="p-5">
             <label>パスワード</label>
-            <Input
+            <PasswordInput
               className="w-1/2"
               placeholder="パスワードを入力してください。"
+              // visible={visible}
+              // onVisibilityChange={toggle}
               type={"text"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="p-5">
+            <label>パスワード(確認用)</label>
+            <PasswordInput
+              className="w-1/2"
+              placeholder="パスワードを入力してください。"
+              // visible={visible}
+              // onVisibilityChange={toggle}
+              type={"text"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
           <div className="p-5">
             <label>ユーザー名</label>
             <Input
@@ -108,13 +154,27 @@ export const SignUpForm = () => {
           </div>
           <div className="p-5">
             <label>期</label>
-            <Input
+            {/* <Input
               className="w-1/2"
               placeholder="期を入力してください。"
               type={"number"}
               value={termStr}
               onChange={(e) => setTermStr(e.target.value)}
-            />
+            /> */}
+            <Select
+              className="w-1/2"
+              name="term"
+              placeholder="アイテムカテゴリを選択してください"
+              value={termStr}
+              data={[
+                { value: "0", label: "0" },
+                { value: "1", label: "1" },
+                { value: "2", label: "2" },
+                { value: "3", label: "3" },
+                { value: "4", label: "4" },
+              ]}
+              onChange={setTermStr}
+            ></Select>
           </div>
           <button className="p-5" type={"submit"}>
             アカウント登録

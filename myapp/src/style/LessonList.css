@@ -9,3 +9,37 @@
     --tw-text-opacity: 1;
     color: rgb(120 113 108 / var(--tw-text-opacity));
     }
+
+.scrollbar-thin {
+        scrollbar-width: thin;
+}
+    
+.scrollbar-thumb-indigo-500::-webkit-scrollbar-thumb {
+        background-color: #667EEA; /* 適切な色に変更 */
+}
+    
+.scrollbar-thumb-indigo-500::-webkit-scrollbar-track {
+        background-color: #EDF2F7; /* 適切な色に変更 */
+}
+
+.test_alt {
+    position: relative;
+    padding-left: 0.75rem; 
+    margin-top: 1.25rem; 
+    overflow-y: scroll;
+}
+
+/* スクロールバーの幅と高さを設定する */
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  /* スクロールバーの形を設定する */
+  .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+    border-radius: 0.25rem;
+  }
+  /* スクロールバーの色を設定する */
+  .scrollbar-thumb-black::-webkit-scrollbar-thumb {
+    --bg-opacity: 1;
+    background-color: rgb(137, 137, 137, 0.7);
+  }

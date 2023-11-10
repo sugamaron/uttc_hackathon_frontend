@@ -81,8 +81,17 @@ export const ItemList = () => {
         <h2>{lesson_name}</h2>
         <div className="Categories">
           {categories.map((category, index) => (
-            <div key={index}>
+            <div className="CategoryBorder">
+              {/* <NavLink
+                activeClassName="SelectedCategory"
+                to={`/items/${lesson_id}/${category.category_id}/${order}?lesson_name=${lesson_name}`}
+              >
+                <div key={index} className="CategoryLink">
+                  {category.category_name}
+                </div>
+              </NavLink> */}
               <NavLink
+                className="CategoryLink"
                 activeClassName="SelectedCategory"
                 to={`/items/${lesson_id}/${category.category_id}/${order}?lesson_name=${lesson_name}`}
               >

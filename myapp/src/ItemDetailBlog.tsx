@@ -47,18 +47,24 @@ export const ItemDetailBlog = () => {
 
   //アイテム削除ボタン
   const DeleteItem = async () => {
-    try {
-      const result = await fetch(
-        `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items/${item_id}`,
-        { method: "DELETE" }
-      );
-      if (!result.ok) {
-        throw Error(`Failed to delete item: ${result.status}`);
+    const isConfirmed = window.confirm("本当に削除しますか？");
+
+    if (isConfirmed) {
+      try {
+        const result = await fetch(
+          `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/items/${item_id}`,
+          { method: "DELETE" }
+        );
+        if (!result.ok) {
+          throw Error(`Failed to delete item: ${result.status}`);
+        }
+        alert("アイテムを削除しました。");
+        history.push("/home");
+      } catch (err) {
+        console.error(err);
       }
-      alert("アイテムを削除しました。");
-      history.push("/home");
-    } catch (err) {
-      console.error(err);
+    } else {
+      return;
     }
   };
 
@@ -180,7 +186,9 @@ export const ItemDetailBlog = () => {
               </div>
 
               <div>
-                <button onClick={DeleteItem}>このアイテムを削除</button>
+                <button onClick={DeleteItem} className="text-red-600">
+                  このアイテムを削除
+                </button>
               </div>
             </div>
           </div>

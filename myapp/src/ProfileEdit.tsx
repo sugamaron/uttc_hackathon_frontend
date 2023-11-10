@@ -7,6 +7,7 @@ import { Input } from "@mantine/core";
 import { Button } from "@mantine/core";
 import "./style/ProfileEdit.css";
 import { getAuth, updatePassword, deleteUser } from "firebase/auth";
+import { PasswordInput } from "@mantine/core";
 
 export const EditProfile = () => {
   const history = useHistory();
@@ -76,34 +77,40 @@ export const EditProfile = () => {
 
   //アカウント削除ボタン
   const DeleteUser = async () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const isConfirmed = window.confirm("本当に削除しますか？");
 
-    if (!user) {
-      return;
-    }
-    deleteUser(user)
-      .then(() => {
-        console.log("firebaseからユーザー削除");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("アカウントの削除に失敗しました");
+    if (isConfirmed) {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
         return;
-      });
-
-    try {
-      const result = await fetch(
-        `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/users/${user_id}`,
-        { method: "DELETE" }
-      );
-      if (!result.ok) {
-        throw Error(`Failed to delete user: ${result.status}`);
       }
-      alert("アカウントを削除しました。");
-      history.push("/");
-    } catch (err) {
-      console.error(err);
+      deleteUser(user)
+        .then(() => {
+          console.log("firebaseからユーザー削除");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("アカウントの削除に失敗しました");
+          return;
+        });
+
+      try {
+        const result = await fetch(
+          `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/users/${user_id}`,
+          { method: "DELETE" }
+        );
+        if (!result.ok) {
+          throw Error(`Failed to delete user: ${result.status}`);
+        }
+        alert("アカウントを削除しました。");
+        history.push("/");
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      return;
     }
   };
 
@@ -127,7 +134,7 @@ export const EditProfile = () => {
             </div>
             <div className="p-5">
               <label>パスワード</label>
-              <Input
+              <PasswordInput
                 className="w-1/2"
                 placeholder="新しいパスワードを入力してください"
                 type={"text"}

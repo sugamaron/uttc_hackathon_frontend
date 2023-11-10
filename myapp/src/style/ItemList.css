@@ -24,12 +24,16 @@
     
 }
 
-.Categories div {
+.CategoryBorder {
+    margin: 30px;
+}
+
+.CategoryLink {
     height: 100px;
     width: 200px;
     padding: 40px;
-    margin: 40px;
-    background-color: rgb(223, 235, 241);
+    margin: 0px;
+    background-color:rgba(176, 212, 230, 0.529);
     display: flex;
     justify-content: center;
     border-radius: 10px;
@@ -47,11 +51,14 @@
 }
 
 .Item {
-    height: 220px;
+    height: 240px;
     width: 600px;
-    padding: 5px;
-    margin: 20px;
-    border: 1px solid #000;
+    /* padding: 5px;
+    margin: 20px; */
+   
+    margin: 2em auto;
+    padding:2em;/*内側余白*/
+    border:double 5px #CCCFD6;
 }
 
 .ImagePosition {
@@ -70,7 +77,9 @@
 
 .SelectedCategory {
     font-weight: bold;
-    text-decoration:underline; 
+    background-color:  rgb(176, 212, 230);
+    
+    /* border: 2px solid #000; */
 }
 
 .SelectedOrder {

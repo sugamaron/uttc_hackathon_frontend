@@ -6,6 +6,7 @@ import { Header } from "./Header";
 import { MantineProvider } from "@mantine/core";
 import "./style/LoginForm.css";
 import { Input } from "@mantine/core";
+import { PasswordInput } from "@mantine/core";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -54,7 +55,7 @@ export const LoginForm = () => {
 
           <div className="p-5">
             <label>パスワード</label>
-            <Input
+            <PasswordInput
               className="w-1/2"
               placeholder="パスワードを入力してください。"
               type={"text"}

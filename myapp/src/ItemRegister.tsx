@@ -11,6 +11,7 @@ import { Select } from "@mantine/core";
 import { Header } from "./Header";
 
 export const RegisterItem = () => {
+  const history = useHistory();
   //章一覧取得
   type Lesson = {
     lesson_id: string;
@@ -72,6 +73,10 @@ export const RegisterItem = () => {
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (priceStr == "" && category_id == "book") {
+      alert("技術書の場合は価格も入力してください");
+      return;
+    }
 
     //文字列型のpriceStrをnumberに変換する
     const price = Number(priceStr);
@@ -92,6 +97,16 @@ export const RegisterItem = () => {
 
     if (category_id === null) {
       alert("登録するアイテムのカテゴリを入力してください。");
+      return;
+    }
+
+    if (url == "") {
+      alert("URLを入力してください");
+      return;
+    }
+
+    if (title == "") {
+      alert("タイトルを入力してください");
       return;
     }
 
@@ -119,12 +134,40 @@ export const RegisterItem = () => {
         }
       );
       if (!result.ok) {
-        throw Error(`Failed to register item detail: ${result.status}`);
+        throw Error(`Failed to register item: ${result.status}`);
       }
-      alert("アイテムを登録しました。");
     } catch (err) {
       console.error(err);
+      alert("アイテム登録に失敗しました");
+      return;
     }
+    //登録されたあとの処理
+    //slackに通知
+    const payload = {
+      text: `${title}が登録されました`,
+    };
+    const slackWebhookURL =
+      "https://hooks.slack.com/services/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";
+
+    fetch(slackWebhookURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Slackへのメッセージの送信に失敗しました");
+        }
+        console.log("Slackに通知が送られました");
+      })
+      .catch((error) => {
+        console.error("Slackへのメッセージの送信に失敗しました", error);
+      });
+
+    alert("アイテムを登録しました。");
+    history.push("/home");
   };
 
   useEffect(() => {

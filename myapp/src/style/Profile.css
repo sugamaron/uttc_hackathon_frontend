@@ -8,7 +8,7 @@
   height: 100vh;
   position: relative;
   left: 400px;
-  top: 130px;
+  top: 80px;
   /* background-color: aqua; */
   overflow-x: hidden;
 
@@ -18,6 +18,7 @@
   font-size: 250%;
   position: relative;
   left: 100px;
+  top: 30px;
 }
 
 .UserProfile {
@@ -39,14 +40,15 @@
   width: auto;
   max-width: 35%;
   margin: 0 0 0 auto;
-  margin-right: 100px;
+  position: relative;
   margin-top: 80px;
+  right: 60px;
   padding: 30px;
-  background-color:  rgb(228, 237, 241);
+  background-color:  rgb(224, 238, 245);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   position: relative;
   bottom: 150px;
 }

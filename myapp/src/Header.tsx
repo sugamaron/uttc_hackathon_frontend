@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { fireAuth } from "./firebase";
 import { useAuthContext } from "./provider/AuthProvider";
@@ -10,38 +10,44 @@ export const Header = () => {
   const { user } = useAuthContext();
 
   const logout = () => {
-    signOut(fireAuth)
-      .then(() => {
-        //セッションストレージからユーザー情報削除
-        DeleteUserData();
-        alert("ログアウトしました");
-        history.push("/");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    const isConfirmed = window.confirm("ログアウトしますか？");
+
+    if (isConfirmed) {
+      signOut(fireAuth)
+        .then(() => {
+          //セッションストレージからユーザー情報削除
+          DeleteUserData();
+          history.push("/");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      return;
+    }
   };
 
   return (
-    // <header className="text-gray-600 body-font fixed">
     <header>
       <div className="container mx-auto flex p-5 flex-col md:flex-row items-center">
         {/* items center：一直線上に横に並べる　 */}
-        <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
-        </a>
+        <Link to="/home">
+          <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
+          </a>
+        </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav>
 
         {/* <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav> */}
