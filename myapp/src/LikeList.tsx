@@ -49,26 +49,9 @@ export const LikeList = () => {
 
       <div className="LikeList">
         <h2>いいねしたアイテム一覧</h2>
-        {/* {items.map((item, index) => (
-          <div className="LikeItem" key={index}>
-            <Link to={`/items/${item.category_id}/${item.item_id}`}>
-              {item.title}
-            </Link>
-            <ul>
-              <li>登録者：{item.registrant}</li>
-              <li>登録日:{item.registration_date}</li>
-              <li>更新日:{item.update_date}</li>
-              <li>
-                <div className="heart-solid icon"></div>
-                <div className="HeartNum">{item.likes}</div>
-              </li>
-            </ul>
-            <br />
-          </div>
-        ))} */}
         <div className="Items">
           {items.map((item, index) => (
-            <div key={index} className="Item">
+            <div key={index} className="LikeItem">
               <Link
                 className="font-bold"
                 to={`/items/${item.category_id}/${item.item_id}`}
@@ -85,16 +68,22 @@ export const LikeList = () => {
                 </div>
                 <div className="ItemListData">
                   <ul>
-                    <li>登録者：{item.registrant}</li>
+                    <Link to={`/users/${item.registrant}`}>
+                      <li>登録者：{item.registrant}</li>
+                    </Link>
                     <li>
                       登録日:
                       {item.registration_date
                         .replace("T", " ")
-                        .replace("+09:00", "")}
+                        .replace("+09:00", "")
+                        .substring(0, 16)}
                     </li>
                     <li>
                       更新日:
-                      {item.update_date.replace("T", " ").replace("+09:00", "")}
+                      {item.update_date
+                        .replace("T", " ")
+                        .replace("+09:00", "")
+                        .substring(0, 16)}
                     </li>
                     <li>
                       <div className="heart-solid icon"></div>

@@ -135,25 +135,39 @@ export const ItemList = () => {
                 {item.title}
               </Link>
               <div className="ImagePosition">
-                <div>
-                  <img
-                    className="ItemListImage"
-                    src={item.image_url}
-                    alt="画像を表示できません"
-                  />
-                </div>
+                {/* <img
+                  className="ItemListImage"
+                  src={item.image_url}
+                  alt="画像を表示できません"
+                /> */}
+                <img
+                  className={
+                    category_id == "book"
+                      ? "ItemListImageBook"
+                      : "ItemListImage"
+                  }
+                  src={item.image_url}
+                  alt="画像を表示できません"
+                />
+
                 <div className="ItemListData">
                   <ul>
-                    <li>登録者：{item.registrant}</li>
+                    <Link to={`/users/${item.registrant}`}>
+                      <li>登録者：{item.registrant}</li>
+                    </Link>
                     <li>
                       登録日:
                       {item.registration_date
                         .replace("T", " ")
-                        .replace("+09:00", "")}
+                        .replace("+09:00", "")
+                        .substring(0, 16)}
                     </li>
                     <li>
                       更新日:
-                      {item.update_date.replace("T", " ").replace("+09:00", "")}
+                      {item.update_date
+                        .replace("T", " ")
+                        .replace("+09:00", "")
+                        .substring(0, 16)}
                     </li>
                     <li>
                       <div className="heart-solid icon"></div>
@@ -162,7 +176,6 @@ export const ItemList = () => {
                   </ul>
                 </div>
               </div>
-              {/* <br /> */}
             </div>
           ))}
         </div>

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LessonList } from "./LessonList";
 import { GetUserData } from "./User";
@@ -11,10 +11,15 @@ import { Textarea } from "@mantine/core";
 import { Select } from "@mantine/core";
 
 export const EditItem = () => {
+  const history = useHistory();
   //パスパラメータ取得
   const { item_id } = useParams<{
     item_id: string;
   }>();
+
+  const search = useLocation().search;
+  const query = new URLSearchParams(search);
+  const currentCategoryId = query.get("category_id");
 
   //章一覧取得
   type Lesson = {
@@ -75,12 +80,15 @@ export const EditItem = () => {
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (lesson_id === null) {
+    console.log(category_id);
+    console.log(lesson_id);
+
+    if (lesson_id === "") {
       alert("登録するアイテムの章を入力してください。");
       return;
     }
 
-    if (category_id === null) {
+    if (category_id === "") {
       alert("登録するアイテムのカテゴリを入力してください。");
       return;
     }
@@ -96,6 +104,8 @@ export const EditItem = () => {
             description: description,
             url: url,
             image_url: imageUrl,
+            category_id: category_id,
+            lesson_id: lesson_id,
           }),
         }
       );
@@ -103,6 +113,11 @@ export const EditItem = () => {
         throw Error(`Failed to fetch item detail: ${result.status}`);
       }
       alert("アイテムを更新しました。");
+      if (category_id === "") {
+        history.push(`/items/${currentCategoryId}/${item_id}`);
+      } else {
+        history.push(`/items/${category_id}/${item_id}`);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -119,6 +134,7 @@ export const EditItem = () => {
       <LessonList />
       <div className="ItemEdit">
         <h1>アイテム編集</h1>
+        <h2 className="mt-3">更新したくない欄は未入力のままにしてください。</h2>
         <form onSubmit={onsubmit}>
           <div className="EditForm">
             <div className="p-5">
@@ -132,7 +148,8 @@ export const EditItem = () => {
               />
             </div>
             <div className="p-5">
-              <label>カリキュラムの章</label>
+              {/* <label>カリキュラムの章</label> */}
+              <Input.Label required>カリキュラムの章</Input.Label>
               <Select
                 className="w-1/2"
                 name="lesson"
@@ -146,7 +163,8 @@ export const EditItem = () => {
               ></Select>
             </div>
             <div className="p-5">
-              <label>アイテムカテゴリ</label>
+              {/* <label>アイテムカテゴリ</label> */}
+              <Input.Label required>アイテムカテゴリ</Input.Label>
               <Select
                 className="w-1/2"
                 name="category"

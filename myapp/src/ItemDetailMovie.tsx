@@ -122,17 +122,27 @@ export const ItemDetailMovie = () => {
 
             <div className="Date">
               <div className="flex">
-                <p className="p-2">登録者：{i.registrant}</p>
+                <Link to={`/users/${i.registrant}`}>
+                  <p className="p-2">登録者：{i.registrant}</p>
+                </Link>
                 <p className="p-2">
                   登録日：
-                  {i.registration_date.replace("T", " ").replace("+09:00", "")}
+                  {i.registration_date
+                    .replace("T", " ")
+                    .replace("+09:00", "")
+                    .substring(0, 16)}
                 </p>
               </div>
               <div className="flex">
-                <p className="p-2">更新者：{i.updater}</p>
+                <Link to={`/users/${i.updater}`}>
+                  <p className="p-2">更新者：{i.updater}</p>
+                </Link>
                 <p className="p-2">
                   更新日：
-                  {i.update_date.replace("T", " ").replace("+09:00", "")}
+                  {i.update_date
+                    .replace("T", " ")
+                    .replace("+09:00", "")
+                    .substring(0, 16)}
                 </p>
               </div>
             </div>
@@ -175,7 +185,9 @@ export const ItemDetailMovie = () => {
                 )}
               </div>
               <div>
-                <Link to={`/items/edit/${item_id}`}>このアイテムを編集</Link>
+                <Link to={`/items/edit/${item_id}?category_id=movie`}>
+                  このアイテムを編集
+                </Link>
               </div>
 
               <div>

@@ -17,6 +17,7 @@ import { AuthProvider } from "./provider/AuthProvider";
 import { GetUserAuth } from "./User";
 import { LikeList } from "./LikeList";
 import { ItemSearch } from "./ItemSearch";
+import { UserProfile } from "./UserProfile";
 
 function App() {
   type Props = {
@@ -71,6 +72,7 @@ function App() {
             component={ItemList}
           />
           <RouteAuthGuard path="/users/edit/:user_id" component={EditProfile} />
+          <RouteAuthGuard path="/users/:user_name" component={UserProfile} />
         </Switch>
       </BrowserRouter>
     </AuthProvider>

@@ -68,7 +68,9 @@ export const ItemSearch = () => {
                 </div>
                 <div className="ItemListData">
                   <ul>
-                    <li>登録者：{item.registrant}</li>
+                    <Link to={`/users/${item.registrant}`}>
+                      <li>登録者：{item.registrant}</li>
+                    </Link>
                     <li>
                       登録日:
                       {item.registration_date
@@ -77,7 +79,10 @@ export const ItemSearch = () => {
                     </li>
                     <li>
                       更新日:
-                      {item.update_date.replace("T", " ").replace("+09:00", "")}
+                      {item.update_date
+                        .replace("T", " ")
+                        .replace("+09:00", "")
+                        .substring(0, 16)}
                     </li>
                     <li>
                       <div className="heart-solid icon"></div>

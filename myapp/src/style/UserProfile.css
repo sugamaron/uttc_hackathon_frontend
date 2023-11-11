@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.UserNameProfile {
+    font-size: 250%;
+    position: relative;
+    right: 100px;
+}
+
+.UserTermProfile {
+    font-size: 150%;
+    position: relative;
+    left: 100px;
+
+}
