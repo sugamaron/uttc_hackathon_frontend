@@ -90,13 +90,13 @@ export const RegisterItem = () => {
       return;
     }
 
-    if (lesson_id === null) {
-      alert("登録するアイテムの章を入力してください。");
+    if (lesson_id === "") {
+      alert("カリキュラムの章を入力してください。");
       return;
     }
 
-    if (category_id === null) {
-      alert("登録するアイテムのカテゴリを入力してください。");
+    if (category_id === "") {
+      alert("アイテムカテゴリを入力してください。");
       return;
     }
 
@@ -185,7 +185,7 @@ export const RegisterItem = () => {
         <form onSubmit={onsubmit}>
           <div className="RegsiterForm">
             <div className="p-5">
-              <label>タイトル</label>
+              <Input.Label required>タイトル</Input.Label>
               <Input
                 className="w-1/2"
                 placeholder="タイトルを入力してください"
@@ -195,7 +195,7 @@ export const RegisterItem = () => {
               />
             </div>
             <div className="p-5">
-              <label>カリキュラムの章</label>
+              <Input.Label required>カリキュラムの章</Input.Label>
               <Select
                 className="w-1/2"
                 name="lesson"
@@ -209,7 +209,7 @@ export const RegisterItem = () => {
               ></Select>
             </div>
             <div className="p-5">
-              <label>アイテムカテゴリ</label>
+              <Input.Label required>アイテムカテゴリ</Input.Label>
               <Select
                 className="w-1/2"
                 name="category"
@@ -223,7 +223,7 @@ export const RegisterItem = () => {
               ></Select>
             </div>
             <div className="p-5">
-              <label>URL</label>
+              <Input.Label required>URL</Input.Label>
               <Input
                 className="w-1/2"
                 placeholder="URLを入力してください"
@@ -233,7 +233,7 @@ export const RegisterItem = () => {
               />
             </div>
             <div className="p-5">
-              <label>画像のURL</label>
+              <Input.Label>画像のURL</Input.Label>
               <Input
                 className="w-1/2"
                 placeholder="画像のURLを入力してください(無い場合は何も入力しないでください)"
@@ -243,7 +243,7 @@ export const RegisterItem = () => {
               />
             </div>
             <div className="p-5">
-              <label>説明文</label>
+              <Input.Label>説明文</Input.Label>
               <Textarea
                 className="w-1/2"
                 size="md"
@@ -254,7 +254,7 @@ export const RegisterItem = () => {
               />
             </div>
             <div className="p-5">
-              <label>価格(技術書の場合)</label>
+              <Input.Label>価格(技術書の場合)</Input.Label>
               <Input
                 className="w-1/2"
                 placeholder="価格を入力してください(技術書の場合のみ)"

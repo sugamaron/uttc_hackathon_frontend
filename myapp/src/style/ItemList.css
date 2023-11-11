@@ -39,6 +39,10 @@
     border-radius: 10px;
 }
 
+.CategoryLink:hover {
+    background-color:rgb(176, 212, 230);
+}
+
 .Order {
     display: flex;
     position: relative;

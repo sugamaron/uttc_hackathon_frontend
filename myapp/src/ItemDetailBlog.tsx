@@ -9,6 +9,10 @@ import { GetUserData } from "./User";
 export const ItemDetailBlog = () => {
   const history = useHistory();
 
+  //現在ログインしているユーザー情報取得
+  const userData = GetUserData();
+  const user_name = userData.user_name;
+
   //パスパラメータitem_id取得
   const { item_id } = useParams<{
     item_id: string;
@@ -127,9 +131,15 @@ export const ItemDetailBlog = () => {
 
             <div className="Date">
               <div className="flex">
-                <Link to={`/users/${i.registrant}`}>
-                  <p className="p-2">登録者：{i.registrant}</p>
-                </Link>
+                <p className="p-2">
+                  登録者：
+                  <Link
+                    className="hover:text-gray-500"
+                    to={`/users/${i.registrant}`}
+                  >
+                    {i.registrant}
+                  </Link>
+                </p>
                 <p className="p-2">
                   登録日：
                   {i.registration_date
@@ -139,9 +149,15 @@ export const ItemDetailBlog = () => {
                 </p>
               </div>
               <div className="flex">
-                <Link to={`/users/${i.updater}`}>
-                  <p className="p-2">更新者：{i.updater}</p>
-                </Link>
+                <p className="p-2">
+                  更新者：
+                  <Link
+                    className="hover:text-gray-500"
+                    to={`/users/${i.updater}`}
+                  >
+                    {i.updater}
+                  </Link>
+                </p>
                 <p className="p-2">
                   更新日：
                   {i.update_date
@@ -163,7 +179,9 @@ export const ItemDetailBlog = () => {
             </div>
 
             <div className="Url">
-              <a href={i.url}>ブログを読む</a>
+              <a className="hover:text-gray-500" href={i.url}>
+                ブログを読む
+              </a>
             </div>
 
             <div className="Menu">
@@ -173,7 +191,7 @@ export const ItemDetailBlog = () => {
                   <div>
                     <div className="heart-solid icon"></div>
                     <button
-                      className="transform translate-x-5"
+                      className="transform translate-x-5 hover:text-gray-500"
                       onClick={PushNotLike}
                     >
                       いいねを消す
@@ -183,7 +201,7 @@ export const ItemDetailBlog = () => {
                   <div>
                     <div className="heart icon"></div>
                     <button
-                      className="transform translate-x-5"
+                      className="transform translate-x-5 hover:text-gray-500"
                       onClick={PushLike}
                     >
                       いいねする
@@ -192,15 +210,25 @@ export const ItemDetailBlog = () => {
                 )}
               </div>
               <div>
-                <Link to={`/items/edit/${item_id}?category_id=blog`}>
+                <Link
+                  className="hover:text-gray-500"
+                  to={`/items/edit/${item_id}?category_id=blog`}
+                >
                   このアイテムを編集
                 </Link>
               </div>
 
               <div>
-                <button onClick={DeleteItem} className="text-red-600">
-                  このアイテムを削除
-                </button>
+                {i.registrant === user_name ? (
+                  <button
+                    onClick={DeleteItem}
+                    className="text-red-600 hover:text-red-300"
+                  >
+                    このアイテムを削除
+                  </button>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           </div>

@@ -28,19 +28,6 @@ export const ItemDetailBook = () => {
     price: number;
   };
 
-  // type ItemBookDetail = {
-  //   title: string;
-  //   registrant: string;
-  //   registration_date: string;
-  //   updater: string;
-  //   update_date: string;
-  //   description: string;
-  //   url: string;
-  //   likes: number;
-  //   price: number;
-  //   image_url: string
-  // };
-
   //アイテム詳細取得
   const [item, setItem] = useState<ItemDetail[]>([]);
 
@@ -161,9 +148,15 @@ export const ItemDetailBook = () => {
 
             <div className="Date">
               <div className="flex">
-                <Link to={`/users/${i.registrant}`}>
-                  <p className="p-2">登録者：{i.registrant}</p>
-                </Link>
+                <p className="p-2">
+                  登録者：
+                  <Link
+                    className="hover:text-gray-500"
+                    to={`/users/${i.registrant}`}
+                  >
+                    {i.registrant}
+                  </Link>
+                </p>
                 <p className="p-2">
                   登録日：
                   {i.registration_date
@@ -173,9 +166,15 @@ export const ItemDetailBook = () => {
                 </p>
               </div>
               <div className="flex">
-                <Link to={`/users/${i.updater}`}>
-                  <p className="p-2">更新者：{i.updater}</p>
-                </Link>
+                <p className="p-2">
+                  更新者：
+                  <Link
+                    className="hover:text-gray-500"
+                    to={`/users/${i.updater}`}
+                  >
+                    {i.updater}
+                  </Link>
+                </p>
                 <p className="p-2">
                   更新日：
                   {i.update_date
@@ -205,7 +204,9 @@ export const ItemDetailBook = () => {
                 >{`価格：${b.price}円`}</div>
               ))}
               <div className="bookUrl">
-                <a href={i.url}>購入サイトに進む</a>
+                <a className="hover:text-gray-500" href={i.url}>
+                  購入サイトに進む
+                </a>
               </div>
             </div>
 
@@ -226,7 +227,7 @@ export const ItemDetailBook = () => {
                   <div>
                     <div className="heart icon"></div>
                     <button
-                      className="transform translate-x-5"
+                      className="transform translate-x-5 hover:text-gray-500"
                       onClick={PushLike}
                     >
                       いいねする
@@ -235,13 +236,19 @@ export const ItemDetailBook = () => {
                 )}
               </div>
               <div>
-                <Link to={`/items/edit/${item_id}?category_id=book`}>
+                <Link
+                  className="hover:text-gray-500"
+                  to={`/items/edit/${item_id}?category_id=book`}
+                >
                   このアイテムを編集
                 </Link>
               </div>
 
               <div>
-                <button onClick={DeleteItem} className="text-red-600">
+                <button
+                  onClick={DeleteItem}
+                  className="text-red-600 hover:text-red-300"
+                >
                   このアイテムを削除
                 </button>
               </div>

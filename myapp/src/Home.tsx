@@ -61,39 +61,55 @@ export const Home = () => {
       <div className="Profile">
         <div>
           <h1>HOME</h1>
-          <h1>Welcome! {userProfile.user_name}!</h1>
+          <h1>
+            Welcome!{" "}
+            <Link
+              className="transition duration-300 hover:text-gray-500"
+              to={`users/${userProfile.user_name}`}
+            >
+              {userProfile.user_name}!
+            </Link>
+          </h1>
         </div>
-        {/* <div>
-          <ul className="UserProfile">
-            <li>{userProfile.user_name}</li>
-            <li>{userProfile.term}期生</li>
-          </ul>
-        </div> */}
 
         <div className="flex">
           <div className="ProfileList">
             <div className="p-5">
-              <Link to={`/users/edit/${userProfile.user_id}`}>
+              <Link
+                className="transition duration-300 hover:text-gray-500"
+                to={`/users/edit/${userProfile.user_id}`}
+              >
                 ユーザー情報変更
               </Link>
             </div>
             <div className="p-5">
-              <Link to="/items/likes">いいねしたアイテム</Link>
+              <Link
+                className="transition duration-300 hover:text-gray-500"
+                to="/items/likes"
+              >
+                いいねしたアイテム
+              </Link>
             </div>
             <div className="p-5">
-              <Link to="/items/register">アイテム登録</Link>
+              <Link
+                className="transition duration-300 hover:text-gray-500"
+                to="/items/register"
+              >
+                アイテム登録
+              </Link>
             </div>
           </div>
 
           <div className="ItemRanking">
-            <h2>人気ランキング</h2>
+            <h2 className="text-center font-bold">人気ランキング</h2>
             {rankingItem.map((item, index) => (
               <div key={index} className="p-2">
+                <p className="font-bold">{index + 1}位</p>
                 <Link
-                  className="font-bold"
+                  className="font-bold hover:text-gray-500"
                   to={`/items/${item.category_id}/${item.item_id}`}
                 >
-                  {index + 1}位<div className="p-1">{item.title}</div>
+                  <div className="p-1">{item.title}</div>
                 </Link>
                 <div className="heart-solid icon"></div>
                 <div className="HeartNum">{item.likes}</div>

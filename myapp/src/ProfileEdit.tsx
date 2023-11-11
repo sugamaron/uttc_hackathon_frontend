@@ -7,7 +7,9 @@ import { Input } from "@mantine/core";
 import { Button } from "@mantine/core";
 import "./style/ProfileEdit.css";
 import { getAuth, updatePassword, deleteUser } from "firebase/auth";
-import { PasswordInput } from "@mantine/core";
+import { PasswordInput, Select } from "@mantine/core";
+import { SetUserData } from "./User";
+import { GetUserData } from "./User";
 
 export const EditProfile = () => {
   const history = useHistory();
@@ -18,10 +20,12 @@ export const EditProfile = () => {
 
   const [user_name, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [termStr, setTermStr] = useState("");
+  const [termStr, setTermStr] = useState<string | null>("");
 
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const isConfirmed = window.confirm("更新しますか？");
 
     //文字列型のtermStrをnumberに変換する
     if (termStr == "") {
@@ -39,40 +43,47 @@ export const EditProfile = () => {
       return;
     }
 
-    if (password != "") {
-      //パスワード変更
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (!user) {
-        return;
-      }
-      updatePassword(user, password)
-        .then(() => {
-          alert("パスワードを変更しました");
-        })
-        .catch((error) => {
-          console.error(error);
-          alert("パスワード変更に失敗しました");
-        });
-    }
-    try {
-      const result = await fetch(
-        `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/users/${user_id}`,
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            user_name: user_name,
-            term: term,
-          }),
+    if (isConfirmed) {
+      if (password != "") {
+        //パスワード変更
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+          return;
         }
-      );
-      if (!result.ok) {
-        throw Error(`Failed to fetch update profile: ${result.status}`);
+        updatePassword(user, password)
+          .then(() => {
+            alert("パスワードを変更しました");
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("パスワード変更に失敗しました");
+          });
       }
-    } catch (err) {
-      console.error(err);
+      try {
+        const result = await fetch(
+          `https://uttc-hackathon-backend-4a3g6srehq-uc.a.run.app/users/${user_id}`,
+          {
+            method: "PUT",
+            body: JSON.stringify({
+              user_name: user_name,
+              term: term,
+            }),
+          }
+        );
+
+        if (!result.ok) {
+          throw Error(`Failed to fetch update profile: ${result.status}`);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+      const userEmail = GetUserData().email;
+      SetUserData(userEmail);
+      // history.push("/home");
+    } else {
+      return;
     }
-    alert("プロフィールを変更しました");
   };
 
   //アカウント削除ボタン
@@ -120,10 +131,11 @@ export const EditProfile = () => {
       <LessonList />
       <div className="ProfileEdit">
         <h1>プロフィール編集</h1>
+        <h2 className="mt-3">未入力の欄は更新されません。</h2>
         <form onSubmit={onsubmit}>
           <div className="ProfileForm">
             <div className="p-5">
-              <label>ユーザー名</label>
+              <Input.Label>ユーザー名</Input.Label>
               <Input
                 className="w-1/2"
                 placeholder="新しいユーザー名を入力してください"
@@ -133,7 +145,7 @@ export const EditProfile = () => {
               />
             </div>
             <div className="p-5">
-              <label>パスワード</label>
+              <Input.Label>パスワード</Input.Label>
               <PasswordInput
                 className="w-1/2"
                 placeholder="新しいパスワードを入力してください"
@@ -143,13 +155,20 @@ export const EditProfile = () => {
               />
             </div>
             <div className="p-5">
-              <label>期</label>
-              <Input
+              <Input.Label required>期</Input.Label>
+              <Select
                 className="w-1/2"
-                placeholder="新しい期を入力してください"
-                type={"number"}
+                name="term"
+                placeholder="期を選択してください"
                 value={termStr}
-                onChange={(e) => setTermStr(e.target.value)}
+                data={[
+                  { value: "0", label: "0" },
+                  { value: "1", label: "1" },
+                  { value: "2", label: "2" },
+                  { value: "3", label: "3" },
+                  { value: "4", label: "4" },
+                ]}
+                onChange={setTermStr}
               />
             </div>
           </div>

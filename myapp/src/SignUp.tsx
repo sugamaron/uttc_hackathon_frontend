@@ -133,7 +133,7 @@ export const SignUpForm = () => {
             <label>パスワード(確認用)</label>
             <PasswordInput
               className="w-1/2"
-              placeholder="パスワードを入力してください。"
+              placeholder="パスワードをもう一度入力してください。"
               // visible={visible}
               // onVisibilityChange={toggle}
               type={"text"}
@@ -154,17 +154,10 @@ export const SignUpForm = () => {
           </div>
           <div className="p-5">
             <label>期</label>
-            {/* <Input
-              className="w-1/2"
-              placeholder="期を入力してください。"
-              type={"number"}
-              value={termStr}
-              onChange={(e) => setTermStr(e.target.value)}
-            /> */}
             <Select
               className="w-1/2"
               name="term"
-              placeholder="アイテムカテゴリを選択してください"
+              placeholder="期を選択してください"
               value={termStr}
               data={[
                 { value: "0", label: "0" },
