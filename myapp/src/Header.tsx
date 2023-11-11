@@ -60,28 +60,30 @@ export const Header = () => {
               <span className="ml-3 text-xl">UTTC KNOWLEDGE BASE</span>
             </a>
           </Link>
-          <div className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <div className="mr-10">
-              <form className="flex items-center">
-                <Input
-                  className="w-60"
-                  placeholder="フリーワード検索"
-                  type={"text"}
-                  value={titleStr}
-                  onChange={(e) => setTitleStr(e.target.value)}
-                />
-                <Button
-                  className="ml-1"
-                  variant="default"
-                  type={"button"}
-                  size="xs"
-                  onClick={searchItems}
-                >
-                  検索
-                </Button>
-              </form>
+          {user ? (
+            <div className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+              <div className="mr-10">
+                <form className="flex items-center">
+                  <Input
+                    className="w-60"
+                    placeholder="フリーワード検索"
+                    type={"text"}
+                    value={titleStr}
+                    onChange={(e) => setTitleStr(e.target.value)}
+                  />
+                  <Button
+                    className="ml-1"
+                    variant="default"
+                    type={"button"}
+                    size="xs"
+                    onClick={searchItems}
+                  >
+                    検索
+                  </Button>
+                </form>
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {/* <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center"></nav> */}
           {user ? (
